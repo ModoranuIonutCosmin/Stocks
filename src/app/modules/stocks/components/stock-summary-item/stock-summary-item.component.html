@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" (click) = "proceedToTickerPage()">
     <mat-card-header>
       <img mat-card-avatar class = "header-avatar" src = "{{this.model.urlLogo}}"/>
       <mat-card-title>{{this.model.ticker}}</mat-card-title>

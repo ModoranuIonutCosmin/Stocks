@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StockCompanyWidgetModel } from '../../models/stock-company-widget-model';
 
 @Component({
@@ -10,9 +11,13 @@ export class StockSummaryItemComponent implements OnInit {
   
   @Input() model! : StockCompanyWidgetModel;
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  proceedToTickerPage() : void{
+    console.log('Navigating');
+    this.router.navigate(['/stocks/summary', this.model.ticker]);
+  }
 }
