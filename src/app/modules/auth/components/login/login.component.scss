@@ -1,0 +1,38 @@
+
+.auth{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: calc(100% - 115px);
+    header{
+        margin: 20px;
+        h1{
+           text-align: center;
+        }
+
+        p{
+            max-width: 300px;
+            text-align: center;
+            word-wrap: break-word;
+        }
+    }
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5px;
+    width: 290px;
+    mat-form-field{
+        width: 100%;
+    }
+
+    .form__registerAdvice{
+        margin-top: 30px;
+    }
+
+    .form__submit{
+        margin-top: 20px;
+    }
+}

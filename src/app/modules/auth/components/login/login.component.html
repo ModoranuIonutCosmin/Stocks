@@ -1,0 +1,49 @@
+<main class = "auth">
+    <header>
+        <h1>Login here</h1>
+        <p>Please log in in order to have access to the full <strong>&lt;nume&gt;</strong> experience.</p>
+    </header>
+    <form [formGroup] = "loginForm" class="form" (ngSubmit) = "submit($event)"> 
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label> 
+                Username or e-mail
+            </mat-label>
+            <input matInput formControlName="userNameOrEmail" required>
+            <mat-error *ngIf="loginForm.controls.userNameOrEmail.touched && loginForm.controls.userNameOrEmail.invalid">
+              <span *ngIf="loginForm.controls.userNameOrEmail.errors?.required">This field is mandatory.</span>
+              <span *ngIf="loginForm.controls.userNameOrEmail.errors?.pattern">This field is invalid.</span>
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label> 
+                Password
+            </mat-label>
+
+            <input matInput placeholder="Password" spellcheck="false" [type]="hidePassword ? 'password' : 'text'"
+             formControlName="password" required>
+
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+                {{hidePassword ? 'visibility_off' : 'visibility'}}
+            </mat-icon>
+
+            <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+              <span *ngIf="loginForm.controls.password.errors?.required">This field is mandatory.</span>
+              <span *ngIf="loginForm.controls.password.errors?.pattern">This field is invalid.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <div class="form__registerAdvice">
+            <p>Don't have an account?</p>
+            <p>You can create one <a [routerLink]='["/auth/register"]' [queryParams]="registerStruct">here</a>.</p>
+        </div>
+        
+    
+        <button class="form__submit"
+         [disabled]="!loginForm.valid"
+         mat-flat-button color="primary">Proceed</button>
+    </form>
+</main>
+
+
+

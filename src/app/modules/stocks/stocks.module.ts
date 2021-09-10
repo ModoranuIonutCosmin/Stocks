@@ -10,6 +10,9 @@ import { StocksDescriptivePageComponent } from './components/stocks-descriptive-
 import { HighchartsChartModule } from 'highcharts-angular';
 import { HistoricalDataInfoAndGraphComponent } from './components/historical-data-info-and-graph/historical-data-info-and-graph.component';
 import { ForecastDataInfoAndGraphComponent } from './components/forecast-data-info-and-graph/forecast-data-info-and-graph.component';
+import { UserService } from '../auth/services/user.service';
+import { AuthModule } from '../auth/auth.module';
+import { LoggedGuard } from 'src/app/AuthGuards/logged-guard';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,6 @@ import { ForecastDataInfoAndGraphComponent } from './components/forecast-data-in
     HttpClientModule,
     HighchartsChartModule
   ],
-  providers: [StocksDataService]
+  providers: [StocksDataService, LoggedGuard, UserService]
 })
 export class StocksModule { }

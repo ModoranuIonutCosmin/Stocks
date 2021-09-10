@@ -1,0 +1,95 @@
+<main class = "auth">
+    <header>
+        <h1>Register here</h1>
+        <p>Please register here in order to have access to the full <strong>&lt;nume&gt;</strong> experience.</p>
+    </header>
+    <form [formGroup] = "registerForm" class="form" (ngSubmit) = "submit($event)"> 
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label> 
+                Username
+            </mat-label>
+            <input matInput formControlName="userName" required>
+            <mat-error *ngIf="registerForm.controls.userName.touched && registerForm.controls.userName.invalid">
+              <span *ngIf="registerForm.controls.userName.errors?.required">This field is mandatory.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <div class = "name">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> 
+                    First Name
+                </mat-label>
+                <input matInput formControlName="firstName" required>
+                <mat-error *ngIf="registerForm.controls.firstName.touched && registerForm.controls.firstName.invalid">
+                  <span *ngIf="registerForm.controls.firstName.errors?.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> 
+                    Last name
+                </mat-label>
+                <input matInput formControlName="lastName" required>
+                <mat-error *ngIf="registerForm.controls.lastName.touched && registerForm.controls.lastName.invalid">
+                  <span *ngIf="registerForm.controls.lastName.errors?.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label> 
+                E-mail
+            </mat-label>
+            <input matInput formControlName="email" required>
+            <mat-error *ngIf="registerForm.controls.email.touched && registerForm.controls.email.invalid">
+              <span *ngIf="registerForm.controls.email.errors?.required">This field is mandatory.</span>
+              <span *ngIf="registerForm.controls.email.errors?.pattern">This field is invalid.</span>
+            </mat-error>
+        </mat-form-field>
+    
+        <div class="password">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> 
+                    Password
+                </mat-label>
+    
+                <input matInput placeholder="Password" spellcheck="false" [type]="hidePassword ? 'password' : 'text'"
+                 formControlName="password" required>
+    
+                <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+                    {{hidePassword ? 'visibility_off' : 'visibility'}}
+                </mat-icon>
+    
+                <mat-error *ngIf="registerForm.controls.password.touched && registerForm.controls.password.invalid">
+                    <span *ngIf="registerForm.controls.password.errors?.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+    
+    
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> 
+                    Confirm password
+                </mat-label>
+    
+                <input matInput placeholder="Password" spellcheck="false"
+                 formControlName="passwordAgain"
+                 type = "password"
+                 required>
+    
+                <mat-error 
+                *ngIf="registerForm.controls.passwordAgain.touched && registerForm.controls.passwordAgain.invalid"
+                >
+                  <span *ngIf="registerForm.controls.passwordAgain.errors?.required">This field is mandatory.</span>
+                  <div *ngIf="registerForm.controls.passwordAgain.errors?.confirmedValidator">Password and Confirm Password must be match.</div>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button class="form__submit"
+         [disabled]="!registerForm.valid"
+         mat-flat-button color="primary">Proceed</button>
+    </form>
+</main>
+
+
+
