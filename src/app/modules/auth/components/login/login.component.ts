@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     this.registerStruct = {
       registerUrl: this.returnUrl
     }
+
   }
 
   ngOnInit(): void {
@@ -55,7 +56,10 @@ export class LoginComponent implements OnInit {
   }
 
   public displayErrorSnackBar(errorMessage:string ='') {
-    this.snackBar.open(`Login failed. ${errorMessage}.`, "OK");
+    this.snackBar.open(`Login failed. ${errorMessage}.`, "OK",
+    {
+      duration: 10000
+    });
   }
 
 }

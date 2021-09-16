@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './AuthHttpInterceptor';
+import { UserService } from './modules/auth/services/user.service';
 
 @NgModule({
   declarations: [
@@ -15,10 +18,18 @@ import { LayoutModule } from '@angular/cdk/layout';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MaterialModule,
     LayoutModule,
   ],
-  providers: [],
+  exports:[
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, 
+    useClass: AuthInterceptor, 
+    multi: true
+  },
+UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,33 @@
+img {
+    width: 45px;
+}
+
+.dialog{
+    width: 500px;
+}
+
+.headerRibbon{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.avatarInfo{
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+
+    div{
+        margin: 5px;
+        *{
+            margin: 0;
+        }
+    }
+}
+
+.tradingInputsForm{
+    label{
+        display: block;
+    }
+}

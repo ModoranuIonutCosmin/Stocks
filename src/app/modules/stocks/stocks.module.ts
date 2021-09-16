@@ -13,6 +13,10 @@ import { ForecastDataInfoAndGraphComponent } from './components/forecast-data-in
 import { UserService } from '../auth/services/user.service';
 import { AuthModule } from '../auth/auth.module';
 import { LoggedGuard } from 'src/app/AuthGuards/logged-guard';
+import { SellPanelComponent } from './components/sell-panel/sell-panel.component';
+import { BuyPanelComponent } from './components/buy-panel/buy-panel.component';
+import { PortofolioService } from './services/portofolio.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,14 +25,16 @@ import { LoggedGuard } from 'src/app/AuthGuards/logged-guard';
     StocksDescriptivePageComponent,
     HistoricalDataInfoAndGraphComponent,
     ForecastDataInfoAndGraphComponent,
+    SellPanelComponent,
+    BuyPanelComponent,
   ],
   imports: [
     CommonModule,
     StocksRoutingModule,
     MaterialModule,
-    HttpClientModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    FormsModule
   ],
-  providers: [StocksDataService, LoggedGuard, UserService]
+  providers: [StocksDataService, LoggedGuard, UserService, PortofolioService]
 })
 export class StocksModule { }

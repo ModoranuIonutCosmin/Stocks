@@ -7,4 +7,6 @@ export interface StockCompanyWidgetModel {
     low: Number;
     openValue: Number;
     closeValue: Number;
+    sellPrice: Number;
+    buyPrice: Number;
 }
