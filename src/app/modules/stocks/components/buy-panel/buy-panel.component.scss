@@ -2,10 +2,6 @@ img {
     width: 45px;
 }
 
-.dialog{
-    width: 500px;
-}
-
 .headerRibbon{
     width: 100%;
     display: flex;
@@ -30,4 +26,10 @@ img {
     label{
         display: block;
     }
+}
+
+.spinnerContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -17,7 +17,7 @@
           <mat-icon mat-list-icon>trending_up</mat-icon>
           <h4 mat-line >Market</h4>
         </mat-list-item>
-        <mat-list-item routerLink="/stocks/market">
+        <mat-list-item routerLink="/dashboard/portofolio">
           <mat-icon mat-list-icon>account_balance</mat-icon>
           <h4 mat-line >Portofolio</h4>
         </mat-list-item>
@@ -25,7 +25,19 @@
           <mat-icon mat-list-icon>person</mat-icon>
           <h4 mat-line >News</h4>
         </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item >
+          
+          
+        </mat-list-item>
       </mat-nav-list>
+
+      <div *ngIf="!!userService.isAuthenticated()" class="refillBalance">
+        <h4 mat-line >Refill balance</h4>
+        <input appOnlyNumber
+        [OnlyNumber]="true" type="text" [(ngModel)]="amountRefill">
+        <button (click)="refillBalance()">Proceed</button>
+      </div>
     </mat-sidenav>
     <mat-sidenav-content>
       <mat-toolbar color="primary">
@@ -37,7 +49,19 @@
           *ngIf="isHandset$ | async">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span>Stocks</span>
+        
+        <div *ngIf="!!userService.isAuthenticated()">
+          <button mat-flat-button color="basic" [matMenuTriggerFor]="menu">
+            <mat-icon mat-list-icon inline="true">person</mat-icon>
+            <span>Profile</span>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/dashboard/profile']">Profile</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+          </mat-menu>
+        </div>
+
       </mat-toolbar>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

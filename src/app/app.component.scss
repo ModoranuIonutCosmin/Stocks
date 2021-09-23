@@ -2,9 +2,7 @@
     height: 100%;
   }
   
-  .sidenav {
-    width: 200px;
-  }
+
   
   .sidenav .mat-toolbar {
     background: inherit;
@@ -18,4 +16,10 @@
   
   .mat-toolbar{
     border-bottom: 1px solid #10101010;
+  }
+
+  .refillBalance{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
   }

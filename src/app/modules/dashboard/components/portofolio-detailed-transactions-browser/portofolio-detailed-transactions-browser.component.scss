@@ -1,0 +1,34 @@
+.mainDataTable{
+    width: 100%;
+}
+
+
+img{
+    width: 45px;
+    height: 45px;
+}
+
+.avatarDescription{
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+
+    div{
+        margin: 5px;
+        *{
+            margin: 0;
+        }
+    }
+}
+
+.buyCell, .sellCell{
+    border-radius: 1px;
+    width: 90%;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.buyCell{
+    background-color: green;
+}

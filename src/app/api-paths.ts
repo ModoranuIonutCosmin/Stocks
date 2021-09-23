@@ -4,8 +4,15 @@ export enum ApiPaths {
     CompanyForecastDataAll = '/api/v1/StocksInfo/forecastData/',
     AuthLogin = '/api/v1/Account/login',
     AuthRegister = '/api/v1/Account/register',
+    ForgotPasswordPost = '/api/v1/Account/forgotPasswordRequest',
+    ModifyPasswordPost = '/api/v1/Account/modifyPasswordRequest',
+    ResetPasswordPost = '/api/v1/Account/resetPassword',
     TradingContext = '/api/v1/Portofolio/tradingContext',
     BuyOrderGet = '/api/v1/Portofolio/buyOrder',
     SellOrderGet = '/api/v1/Portofolio/sellOrder',
-    OrderPost = '/api/v1/Portofolio/order'
+    OrderPost = '/api/v1/Portofolio/placeOrder',
+    TransactionsGrouped = '/api/v1/Portofolio/openTransactions',
+    TransactionsParticular = '/api/v1/Portofolio/openTransactionsForTicker/',
+    CloseTransactionPost = '/api/v1/Portofolio/closeTransaction',
+    RefillBalancePost = '/api/v1/Portofolio/refillBalance',
 }

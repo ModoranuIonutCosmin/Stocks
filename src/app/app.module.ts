@@ -9,6 +9,11 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './AuthHttpInterceptor';
 import { UserService } from './modules/auth/services/user.service';
+import { OnlyNumberDirective } from './directives/only-number.directive';
+import { DirectivesModule } from './modules/directives/directives.module';
+import { FormsModule } from '@angular/forms';
+import { PortofolioService } from './modules/stocks/services/portofolio.service';
+import { LoggedGuard } from './AuthGuards/logged-guard';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,8 @@ import { UserService } from './modules/auth/services/user.service';
     HttpClientModule,
     MaterialModule,
     LayoutModule,
+    DirectivesModule,
+    FormsModule
   ],
   exports:[
   ],
@@ -29,7 +36,9 @@ import { UserService } from './modules/auth/services/user.service';
     useClass: AuthInterceptor, 
     multi: true
   },
-UserService],
+UserService,
+PortofolioService,
+LoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

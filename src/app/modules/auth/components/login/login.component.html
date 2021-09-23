@@ -27,11 +27,14 @@
                 {{hidePassword ? 'visibility_off' : 'visibility'}}
             </mat-icon>
 
+
             <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
               <span *ngIf="loginForm.controls.password.errors?.required">This field is mandatory.</span>
               <span *ngIf="loginForm.controls.password.errors?.pattern">This field is invalid.</span>
             </mat-error>
         </mat-form-field>
+
+        <p>Forgot password? Click <a [routerLink]="[ '/auth/forgotPassword']"> here</a></p>
 
         <div class="form__registerAdvice">
             <p>Don't have an account?</p>

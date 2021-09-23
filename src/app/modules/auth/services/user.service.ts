@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { ApiPaths } from 'src/app/api-paths';
 import { ApiResponse } from 'src/app/general/models/api-response';
 import { environment } from 'src/environments/environment';
+import { ForgotPasswordRequestModel } from '../../stocks/models/ForgotPasswordRequest';
+import { ResetPasswordRequestModel } from '../../stocks/models/ResetPasswordRequestModel';
 import { TradingContextModel } from '../../stocks/models/trading-context-model';
 import { LoginResponseModel } from '../models/login-response-model';
 import { LoginModel } from '../models/LoginModel';
@@ -78,4 +80,20 @@ export class UserService {
       ApiPaths.TradingContext)
     .pipe(map((response) => {return response.response;}))
   }
+
+  forgotPassword(request: ForgotPasswordRequestModel): Observable<ApiResponse<string>>{
+    return this.httpClient.post<ApiResponse<string>>
+    (`${environment.baseUrl}${ApiPaths.ForgotPasswordPost}`,
+    request
+    );
+  }
+
+  resetPassword(request: ResetPasswordRequestModel): Observable<ApiResponse<string>>{
+    return this.httpClient.post<ApiResponse<string>>
+    (`${environment.baseUrl}${ApiPaths.ResetPasswordPost}`,
+    request
+    );
+  }
+
+  
 }

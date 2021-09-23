@@ -5,9 +5,8 @@ import { MarketbrowserComponent } from './components/marketbrowser/marketbrowser
 import { StocksDescriptivePageComponent } from './components/stocks-descriptive-page/stocks-descriptive-page.component';
 
 const routes: Routes = [
-  { path: 'market', component: MarketbrowserComponent,
-  canActivate: [LoggedGuard] },
-  { path: 'summary/:ticker', component: StocksDescriptivePageComponent },
+  { path: 'market', component: MarketbrowserComponent,},
+  { path: 'summary/:ticker', component: StocksDescriptivePageComponent},
 ];
 
 @NgModule({

@@ -1,1 +1,106 @@
-<p>sell-panel works!</p>
+<main class="dialog">
+    <header class="headerRibbon">
+        <h1>Opening SELL position for {{companyModel.ticker}}</h1>
+
+        <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </header>
+
+
+    <div class= "mainContent" *ngIf="fullyLoaded">
+        <div class ="avatarInfo">
+            <img src="{{companyModel.urlLogo}}"/>
+            <div>
+                <h2>{{companyModel.ticker}}</h2>
+                <p>{{companyModel.name}}.</p>
+            </div>
+            <span>{{tradingParameters.currentPrice}}</span>
+            <p>{{tradingParameters.trend}}%</p>
+        </div>
+    
+        <form class="tradingInputsForm">
+            <label>
+                Amount:
+                <button (click)="decreaseAmount()">-</button>
+                <input appOnlyNumber [OnlyNumber]=true
+                 [(ngModel)]="displayValue"
+                [ngModelOptions]="{standalone: true}"
+                (input)="amountChanged($event)"
+                 >
+                <button (click)="increaseAmount()">+</button>
+            </label>
+    
+            <p *ngIf="tradingParameters.extraMoneyNeeded > 0">
+                Needs extra {{tradingParameters.extraMoneyNeeded}}$.
+            </p>
+    
+            <label>
+                Stop loss:
+                <div *ngIf="!stopLossEnabled">
+                    <p >Not set</p>
+                    <button (click)="enableStopLoss()">Add stop-loss</button>
+                </div>
+    
+                   
+                <div *ngIf="stopLossEnabled">
+     <button (click)="decreaseStopLossAmount()">-</button>
+    
+                    <input appOnlyNumber 
+                    type="text"
+                    [OnlyNumber]="true"
+                    [(ngModel)]="this.stopLoss"
+                    (change)="stopLossChanged($event)"
+                    name = "stopLoss"
+                    >
+                    <button (click)="increaseStopLossAmount()">+</button>
+    
+                    {{stopLoss}}
+                </div>
+                
+            </label>
+            <label>
+                Take profit:
+                <button (click)="decreaseTakeProfitAmount()">-</button>
+                <input appOnlyNumber [OnlyNumber]=true
+                [(ngModel)]="takeProfit"
+                [ngModelOptions]="{standalone: true}"
+                (input)="takeProfitChanged($event)"
+                >
+                <button (click)="increaseTakeProfitAmount()">+</button>
+            </label>
+        </form>
+    
+        <mat-button-toggle-group  [(value)]="leverageValue" (change)="onLeverageChange($event.value)">
+            <mat-button-toggle value="1" aria-label="1x">
+              1x
+            </mat-button-toggle>
+            <mat-button-toggle value="2" aria-label="2x">
+              2x
+            </mat-button-toggle>
+            <mat-button-toggle value="5" aria-label="5x">
+              5x
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+    
+        <div *ngIf="tradingParameters.weekdayTax > 0" class="feesSummary">
+            <p>Weekday tax <strong>{{tradingParameters.weekdayTax}}</strong></p>
+            <p>Weekend tax <strong>{{tradingParameters.weekendTax}}</strong></p>
+            <p>Percentage exposed<strong>{{tradingParameters.percentageExposed}}</strong></p>
+        </div>
+    
+        <p>Units paid: <strong>{{tradingParameters.unitsPaid}}</strong></p>
+        <p>{{errorMessage}}</p>
+
+        <button mat-flat-button color="primary" 
+        [disabled] = "errorMessage !== ''"
+        (click) = "placeOrder()"
+        >Proceed</button>
+    </div>
+
+    <div class="spinnerContainer">
+        <div *ngIf="!fullyLoaded" class="loadingSpinner">
+            <mat-spinner diamater="10"></mat-spinner>
+        </div>
+    </div>
+</main>

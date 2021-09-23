@@ -17,6 +17,7 @@ import { SellPanelComponent } from './components/sell-panel/sell-panel.component
 import { BuyPanelComponent } from './components/buy-panel/buy-panel.component';
 import { PortofolioService } from './services/portofolio.service';
 import { FormsModule } from '@angular/forms';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FormsModule } from '@angular/forms';
     StocksRoutingModule,
     MaterialModule,
     HighchartsChartModule,
-    FormsModule
+    FormsModule,
+    DirectivesModule
   ],
   providers: [StocksDataService, LoggedGuard, UserService, PortofolioService]
 })
