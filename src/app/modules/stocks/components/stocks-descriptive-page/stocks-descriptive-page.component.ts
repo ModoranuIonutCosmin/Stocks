@@ -78,10 +78,10 @@ export class StocksDescriptivePageComponent implements OnInit {
       .subscribe(historicalDataInfo => {
 
         this.dailyData = historicalDataInfo
-          .historicalPrices.map((e, index) => {
+          .timepoints.map((e, index) => {
             var date: Date = new Date(e.date);
 
-            return [date.getTime(), e.price];
+            return [date.getTime(), e.closeValue];
           }
           );
 

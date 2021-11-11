@@ -26,7 +26,7 @@ export class PortofolioService {
   ): Observable<ApiResponse<OrderTaxesPreviewModel>> {
 
     return this.httpClient.get<ApiResponse<OrderTaxesPreviewModel>>
-      (`${environment.baseUrl}${ApiPaths.BuyOrderGet}?ticker=${ticker}&invested=${invested}` + `&leverage=${leverage}`);
+      (`${environment.baseUrl}${ApiPaths.BuyOrderGet}?ticker=${ticker}&invested=${invested}` + `&leverage=${leverage}&isBuy=true`);
   }
 
 
@@ -36,7 +36,7 @@ export class PortofolioService {
   ): Observable<ApiResponse<OrderTaxesPreviewModel>> {
 
     return this.httpClient.get<ApiResponse<OrderTaxesPreviewModel>>
-      (`${environment.baseUrl}${ApiPaths.SellOrderGet}?ticker=${ticker}&invested=${invested}` + `&leverage=${leverage}`)
+      (`${environment.baseUrl}${ApiPaths.SellOrderGet}?ticker=${ticker}&invested=${invested}` + `&leverage=${leverage}&isBuy=false`)
       ;
   }
 

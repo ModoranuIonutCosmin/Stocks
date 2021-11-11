@@ -1,4 +1,4 @@
-import { SimpleTimepointValuesModel } from "./simple-timepoint-values-model";
+import { OHLCPriceValue } from "./ohlcprice-value";
 
 export interface HistoricalDataModel {
     ticker: string,
@@ -6,5 +6,8 @@ export interface HistoricalDataModel {
     description: string,
     urllogo: string,
     trend: number,
-    historicalPrices: Array<SimpleTimepointValuesModel>
+    sellPrice: number,
+    buyPrice: number,
+    period: number,
+    timepoints: Array<OHLCPriceValue>
 }

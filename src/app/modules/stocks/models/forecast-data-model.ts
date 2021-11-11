@@ -5,6 +5,5 @@ export interface ForecastDataModel {
     name: string,
     description: string,
     urllogo: string,
-    trend: number,
     predictions: Array<SimpleTimepointValuesModel>
 }

@@ -77,11 +77,15 @@ export class HistoricalDataInfoAndGraphComponent implements OnInit {
     this.dataService.GatherCompanyHistoricalData(this.currentTicker)
       .subscribe(historicalDataInfo => {
 
+        console.log(historicalDataInfo);
+
         this.dailyData = historicalDataInfo
-          .historicalPrices.map((e, index) => {
+          .timepoints.map((e, index) => {
             var date: Date = new Date(e.date);
 
-            return [date.getTime(), e.price];
+            console.log(e.closeValue);
+
+            return [date.getTime(), e.closeValue];
           }
           );
 

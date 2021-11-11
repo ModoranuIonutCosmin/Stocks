@@ -85,7 +85,6 @@ export class BuyPanelComponent implements OnInit, OnDestroy {
       this.panelInfoLoaded = true;
     });
 
-    // get our data every subsequent 10 seconds
     this.feesObs = timer(1, 1000).pipe(
       filter(() => this.panelInfoLoaded),
       switchMap(() => 

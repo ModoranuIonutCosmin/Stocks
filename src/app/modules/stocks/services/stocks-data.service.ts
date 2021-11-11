@@ -31,7 +31,7 @@ export class StocksDataService {
   {
 
     return this.httpClient.get<ApiResponse<HistoricalDataModel>>
-    (`${this.baseUrl}${ApiPaths.CompanyHistoricalDataAll}${ticker}`)
+    (`${this.baseUrl}${ApiPaths.CompanyHistoricalDataAll}?ticker=${ticker}&interval=1d`)
     .pipe(map((res) =>  {
       return res.response;
     }));
@@ -41,7 +41,7 @@ export class StocksDataService {
   {
 
     return this.httpClient.get<ApiResponse<ForecastDataModel>>
-    (`${this.baseUrl}${ApiPaths.CompanyForecastDataAll}${ticker}`)
+    (`${this.baseUrl}${ApiPaths.CompanyForecastDataAll}?ticker=${ticker}`)
     .pipe(map((res) =>  {
       return res.response;
     }));
