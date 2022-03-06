@@ -1,69 +1,64 @@
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-        [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) == false">
-        <mat-toolbar >
-            <div class = "trademark">
-              <img src="assets/Images/Logo.png" width="50px">
-              <span > Stockerize </span>
-            </div>
-            <mat-divider></mat-divider>
-        </mat-toolbar>
-      <mat-nav-list>
-
-        <h3 matSubheader>Gettin' rich</h3>
-        <mat-list-item routerLink="/stocks/market">
-          <mat-icon mat-list-icon>trending_up</mat-icon>
-          <h4 mat-line >Market</h4>
-        </mat-list-item>
-        <mat-list-item routerLink="/dashboard/portofolio">
-          <mat-icon mat-list-icon>account_balance</mat-icon>
-          <h4 mat-line >Portofolio</h4>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>person</mat-icon>
-          <h4 mat-line >News</h4>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item >
-          
-          
-        </mat-list-item>
-      </mat-nav-list>
-
-      <div *ngIf="!!userService.isAuthenticated()" class="refillBalance">
-        <h4 mat-line >Refill balance</h4>
-        <input appOnlyNumber
-        [OnlyNumber]="true" type="text" [(ngModel)]="amountRefill">
-        <button (click)="refillBalance()">Proceed</button>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) == false">
+    <mat-toolbar>
+      <div class="trademark">
+        <img src="assets/Images/Logo.png" width="50px">
+        <span> Stockerize </span>
       </div>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar color="primary">
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        
-        <div *ngIf="!!userService.isAuthenticated()">
-          <button mat-flat-button color="basic" [matMenuTriggerFor]="menu">
-            <mat-icon mat-list-icon inline="true">person</mat-icon>
-            <span>Profile</span>
-          </button>
+      <mat-divider></mat-divider>
+    </mat-toolbar>
+    <mat-nav-list>
 
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item [routerLink]="['/dashboard/profile']">Profile</button>
-            <button mat-menu-item (click)="logout()">Logout</button>
-          </mat-menu>
-        </div>
+      <h3 matSubheader>Research area</h3>
+      <mat-list-item routerLink="/stocks/market">
+        <mat-icon mat-list-icon>trending_up</mat-icon>
+        <h4 mat-line>Market</h4>
+      </mat-list-item>
+      <mat-list-item routerLink="/dashboard/portofolio">
+        <mat-icon mat-list-icon>account_balance</mat-icon>
+        <h4 mat-line>Portofolio</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>supervised_user_circle</mat-icon>
+        <h4 mat-line>News</h4>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item [matMenuTriggerFor]="menu">
+        <mat-icon mat-list-icon>person</mat-icon>
+        <h4 mat-line>My profile</h4>
 
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
+        <mat-menu #menu="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/dashboard/profile']">Profile</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </mat-list-item>
+      <mat-divider></mat-divider>
 
-  </mat-sidenav-container>
+    </mat-nav-list>
+
+    <div *ngIf="!!userService.isAuthenticated()" class="refillBalance">
+      <h4 mat-line>Refill balance</h4>
+      <input appOnlyNumber
+             [OnlyNumber]="true" type="text" [(ngModel)]="amountRefill">
+      <button (click)="refillBalance()">Proceed</button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

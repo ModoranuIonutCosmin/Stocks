@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OnlyNumberDirective } from 'src/app/directives/only-number.directive';
+import { OnlyNumberDirective } from 'src/app/core/directives/only-number.directive';
 
 
 

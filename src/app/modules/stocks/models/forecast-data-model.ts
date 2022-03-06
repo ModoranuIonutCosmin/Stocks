@@ -1,9 +1,10 @@
-import { SimpleTimepointValuesModel } from "./simple-timepoint-values-model";
+import {StocksPriceModel} from "./stocks-price-model";
 
 export interface ForecastDataModel {
-    ticker: string,
-    name: string,
-    description: string,
-    urllogo: string,
-    predictions: Array<SimpleTimepointValuesModel>
+  ticker: string,
+  algorithm: string,
+  page: number,
+  count: number,
+  totalCount: number,
+  predictions: Array<StocksPriceModel>
 }

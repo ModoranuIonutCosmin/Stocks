@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -42,24 +42,21 @@ export class RegisterComponent implements OnInit {
     if (!this.registerForm.valid) {
       return;
     }
-    
+
     this.userService.registerUser(this.registerForm.value)
       .subscribe(response => {
-        console.log(response.response);
-
-        if (response.successful) {
-          this.router.navigateByUrl(this.returnUrl);
-        } else {
-          this.displayErrorSnackBar(response.errorMessage);
-        }
-      })
+        this.displaySnackbar("Registration successful!");
+        this.router.navigateByUrl(this.returnUrl);
+        }, err => {
+          this.displaySnackbar(err.error.detail);
+        });
   }
 
-  public displayErrorSnackBar(errorMessage:string ='') {
-    this.snackBar.open(`Credentials are invalid. ${errorMessage}.`, "OK");
+  public displaySnackbar(message: string ='') {
+    this.snackBar.open(`${message}.`, "OK");
   }
 
-  ConfirmedValidator(controlName: string, matchingControlName: string){
+  public ConfirmedValidator(controlName: string, matchingControlName: string){
     return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];

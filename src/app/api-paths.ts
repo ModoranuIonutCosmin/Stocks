@@ -1,15 +1,20 @@
 export enum ApiPaths {
+    CompanyData = `/api/1.0/StocksInfo/company`,
     CompaniesShortData = `/api/1.0/StocksInfo/report`,
     CompanyHistoricalDataAll = `/api/1.0/StocksInfo/historicalData`,
     CompanyForecastDataAll = `/api/1.0/StocksInfo/forecastData`,
+
+
     AuthLogin = `/api/1.0/Account/login`,
     AuthRegister = `/api/1.0/Account/register`,
     ForgotPasswordPost = `/api/1.0/Account/forgotPassword`,
     ModifyPasswordPut = `/api/1.0/Account/modifyPassword`,
     ResetPasswordPost = `/api/1.0/Account/resetPassword`,
+    ConfirmEmailPost = '/api/1.0/Account/confirmEmail',
+
+
     TradingContext = `/api/1.0/Portofolio/tradingContext`,
-    BuyOrderGet = `/api/1.0/Portofolio/previewPlaceOrder`,
-    SellOrderGet = `/api/1.0/Portofolio/previewPlaceOrder`,
+    PreviewOrder = `/api/1.0/Portofolio/previewPlaceOrder`,
     OrderPost = `/api/1.0/Portofolio/placeOrder`,
     RefillBalancePost = `/api/1.0/Portofolio/refillBalance`,
     TransactionsGrouped = `/api/1.0/Transactions/openTransactions`,

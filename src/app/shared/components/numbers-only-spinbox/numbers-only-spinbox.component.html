@@ -1,0 +1,6 @@
+<div [formGroup]="this.parentForm">
+  <button (click)="decreaseAmount()">-</button>
+  <input type="number" [formControlName]="this.controlName"
+  [(ngModel)]="value"  (change)="valueChanged($event)">
+  <button (click)="increaseAmount()">+</button>
+</div>

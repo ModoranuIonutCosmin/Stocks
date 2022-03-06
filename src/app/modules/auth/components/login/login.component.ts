@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginModel } from '../../models/LoginModel';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -46,17 +46,15 @@ export class LoginComponent implements OnInit {
 
     this.userService.loginUser(loginFormData)
       .subscribe(response => {
-        if (response.successful) {
-          this.router.navigateByUrl(this.registerStruct.registerUrl);
-        } else {
-          this.displayErrorSnackBar(response.errorMessage);
-          console.log(response.errorMessage);
-        }
-      })
+        this.router.navigateByUrl(this.registerStruct.registerUrl);
+      },
+        err => {
+          this.displaySnackBar(err.error.detail);
+        });
   }
 
-  public displayErrorSnackBar(errorMessage:string ='') {
-    this.snackBar.open(`Login failed. ${errorMessage}.`, "OK",
+  public displaySnackBar(message:string ='') {
+    this.snackBar.open(`${message}.`, "OK",
     {
       duration: 10000
     });

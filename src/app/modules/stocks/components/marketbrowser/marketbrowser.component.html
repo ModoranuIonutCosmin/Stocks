@@ -1,14 +1,8 @@
 
-<table mat-table [dataSource]="this.StockMarketList" class="mat-elevation-z8 mainDataTable">
-
-  <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
- 
-
-  <!-- Short info Column -->
+<table mat-table [dataSource]="this.stockMarketList" class="mat-elevation-z8 mainDataTable">
   <ng-container matColumnDef="Market">
     <th mat-header-cell *matHeaderCellDef> Market </th>
-    <td mat-cell *matCellDef="let element" (click) = "navigatToCompanyPage(element)">
+    <td mat-cell *matCellDef="let element" (click) = "navigateToCompanyPage(element)">
 
       <div class="avatarDescription">
         <img src="{{element.urlLogo}}" />
@@ -39,9 +33,9 @@
   <!-- Sell Column -->
   <ng-container matColumnDef="Sell">
     <th mat-header-cell *matHeaderCellDef class = "sellTableHeader"> Sell </th>
-    <td mat-cell *matCellDef="let element"> 
+    <td mat-cell *matCellDef="let element">
         <div class = "sellCell" (click) = "handleSell(element)">
-            {{element.sellPrice}} 
+            {{element.sellPrice}}
         </div>
     </td>
   </ng-container>
@@ -51,7 +45,7 @@
     <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Buy </th>
     <td mat-cell *matCellDef="let element">
         <div class = "buyCell" (click) = "handleBuy(element)">
-            {{element.buyPrice}} 
+            {{element.buyPrice}}
         </div>
     </td>
   </ng-container>
@@ -60,7 +54,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element" width="1px">
 
-        <button mat-icon-button [matMenuTriggerFor]="appMenu" 
+        <button mat-icon-button [matMenuTriggerFor]="appMenu"
         [matMenuTriggerData]="{name: element.ticker}">
             <mat-icon>more_vert</mat-icon>
         </button>

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResetPasswordRequestModel } from 'src/app/modules/stocks/models/ResetPasswordRequestModel';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -58,16 +58,12 @@ export class ResetPasswordComponent implements OnInit {
 
     this.userService.resetPassword(resetPasswordRequest)
     .subscribe(response => {
-      if(response.successful){
         this.actionSuccess = true;
         this.snackBar.open('Password changed. You can log in using the new password', 'OK');
         this.router.navigateByUrl('/');
-      } else {
-        this.errorMessage = response.errorMessage;
-        this.snackBar.open(this.errorMessage, 'OK', {duration: 5000});
-      }
-    });
-
+      }, err => {
+        this.snackBar.open(err.error, 'OK', {duration: 5000});
+      });
   }
 
   PasswordMatchValidator(controlName: string, matchingControlName: string){

@@ -4,7 +4,7 @@ import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AllTransactionsGroupedSummaryModel } from 'src/app/modules/stocks/models/AllTransactionsGroupedSummaryModel';
 import { TransactionsCompanyWidgetModel } from 'src/app/modules/stocks/models/TransactionsCompanyWidgetModel';
-import { PortofolioService } from 'src/app/modules/stocks/services/portofolio.service';
+import { PortofolioService } from 'src/app/core/services/portofolio.service';
 
 @Component({
   selector: 'app-portofolio-transactions-browser',

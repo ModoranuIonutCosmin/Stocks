@@ -1,0 +1,15 @@
+<main>
+  <header>
+    <h1>Email confirmation result</h1>
+  </header>
+
+  <div *ngIf="!confirmationSuccess">
+    <h2>Email confirmation failed</h2>
+    <p>Reason: {{errorMessage}}</p>
+  </div>
+
+  <div *ngIf="confirmationSuccess">
+    <h2>Email confirmation succeded</h2>
+    <p>Your email got confirmed.</p>
+  </div>
+</main>

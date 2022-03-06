@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatRow } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 import { StockCompanyWidgetModel } from '../../models/stock-company-widget-model';
-import { StocksDataService } from '../../services/stocks-data.service';
-import { BuyPanelComponent } from '../buy-panel/buy-panel.component';
-import { SellPanelComponent } from '../sell-panel/sell-panel.component';
+import { StocksDataService } from '../../../../core/services/stocks-data.service';
+import {
+  TradingParametersPanelComponent
+} from "../../../../shared/components/trading-parameters-panel/trading-parameters-panel.component";
 
 @Component({
   selector: 'app-marketbrowser',
@@ -16,7 +16,7 @@ import { SellPanelComponent } from '../sell-panel/sell-panel.component';
 })
 export class MarketbrowserComponent implements OnInit, OnDestroy {
 
-  StockMarketList: Array<StockCompanyWidgetModel>;
+  stockMarketList: Array<StockCompanyWidgetModel>;
   displayedColumns: string[] = ['Market', 'Trend', 'Sell', 'Buy', 'Options'];
 
   gatherMarketData!: Subscription;
@@ -24,17 +24,17 @@ export class MarketbrowserComponent implements OnInit, OnDestroy {
   constructor(private dataService : StocksDataService,
     public dialog: MatDialog,
     private router: Router) {
-    this.StockMarketList = new Array<StockCompanyWidgetModel>();
+    this.stockMarketList = new Array<StockCompanyWidgetModel>();
   }
 
   ngOnInit(): void {
 
     this.gatherMarketData = timer(1, 60000).pipe(
-      switchMap(() => 
-      
+      switchMap(() =>
+
       this.dataService.GatherAllCompaniesShortData())
    ).subscribe((result) => {
-    this.StockMarketList = result;
+    this.stockMarketList = result;
    });
   }
 
@@ -42,10 +42,11 @@ export class MarketbrowserComponent implements OnInit, OnDestroy {
   public handleSell(widgetModel: StockCompanyWidgetModel) : void{
     console.log(`Selling for ${widgetModel.ticker}`);
 
-    const dialogRef = this.dialog.open(SellPanelComponent);
+    const dialogRef = this.dialog.open(TradingParametersPanelComponent);
 
     dialogRef.componentInstance.companyModel = widgetModel;
-    
+    dialogRef.componentInstance.isBuyOrder = false;
+
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -54,16 +55,17 @@ export class MarketbrowserComponent implements OnInit, OnDestroy {
   public handleBuy(widgetModel: StockCompanyWidgetModel) : void{
     console.log(`Buying for ${widgetModel.ticker}`);
 
-    const dialogRef = this.dialog.open(BuyPanelComponent);
+    const dialogRef = this.dialog.open(TradingParametersPanelComponent);
 
     dialogRef.componentInstance.companyModel = widgetModel;
+    dialogRef.componentInstance.isBuyOrder = true;
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
-  public navigatToCompanyPage(tickerData: StockCompanyWidgetModel){
+  public navigateToCompanyPage(tickerData: StockCompanyWidgetModel){
     this.router.navigate(['/stocks/summary', tickerData.ticker]);
   }
 

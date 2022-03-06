@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoggedGuard } from 'src/app/AuthGuards/logged-guard';
 import { MarketbrowserComponent } from './components/marketbrowser/marketbrowser.component';
-import { StocksDescriptivePageComponent } from './components/stocks-descriptive-page/stocks-descriptive-page.component';
+import { ResearchPageComponent} from './pages/research-page/research-page.component'
 
 const routes: Routes = [
-  { path: 'market', component: MarketbrowserComponent,},
-  { path: 'summary/:ticker', component: StocksDescriptivePageComponent},
+  { path: 'market', component: MarketbrowserComponent},
+  { path: 'summary/:ticker', component: ResearchPageComponent},
 ];
 
 @NgModule({

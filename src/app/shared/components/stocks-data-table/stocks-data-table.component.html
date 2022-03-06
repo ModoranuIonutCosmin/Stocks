@@ -1,0 +1,58 @@
+<section class="algorithmSelector">
+  <header>
+    <h1>
+      Forecasted prices by algorithm
+    </h1>
+  </header>
+
+  <div>
+    <button mat-icon-button color="primary"
+            aria-label="Previous algorithm"
+            (click)="choosePreviousAlgorithm()">
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+    <strong>{{this.algorithm}} </strong>
+
+    <button mat-icon-button color="primary"
+            aria-label="Previous algorithm"
+            (click)="chooseNextAlgorithm()">
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
+
+  <p class="mat-hint">{{this.ALGS_NAMES[this.currentAlgorithmIndex]}}</p>
+</section>
+
+
+
+<div class="mat-elevation-z8">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date and time </th>
+      <td mat-cell *matCellDef="let element"> {{element.date | date: 'medium'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Forecasted price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="this?.totalItemsCount"
+                 [pageSizeOptions]="[5, 7, 10]"
+                 [pageIndex]="this.currentPage"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

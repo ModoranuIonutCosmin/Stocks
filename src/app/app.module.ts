@@ -7,13 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './AuthHttpInterceptor';
-import { UserService } from './modules/auth/services/user.service';
-import { OnlyNumberDirective } from './directives/only-number.directive';
+import { AuthInterceptor } from './core/interceptors/AuthHttpInterceptor';
+import { UserService } from './core/services/user.service';
 import { DirectivesModule } from './modules/directives/directives.module';
 import { FormsModule } from '@angular/forms';
-import { PortofolioService } from './modules/stocks/services/portofolio.service';
-import { LoggedGuard } from './AuthGuards/logged-guard';
+import { PortofolioService } from './core/services/portofolio.service';
+import { LoggedGuard } from './core/guard/logged-guard';
+import {PlaceOrderService} from "./core/services/place-order.service";
+import {TradingContextService} from "./core/services/trading-context.service";
 
 @NgModule({
   declarations: [
@@ -27,17 +28,19 @@ import { LoggedGuard } from './AuthGuards/logged-guard';
     MaterialModule,
     LayoutModule,
     DirectivesModule,
-    FormsModule
+    FormsModule,
   ],
-  exports:[
-  ],
+    exports: [
+    ],
   providers: [{
-    provide: HTTP_INTERCEPTORS, 
-    useClass: AuthInterceptor, 
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
     multi: true
   },
 UserService,
 PortofolioService,
+    PlaceOrderService,
+    TradingContextService,
 LoggedGuard],
   bootstrap: [AppComponent]
 })

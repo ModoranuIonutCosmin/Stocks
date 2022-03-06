@@ -6,7 +6,7 @@ import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AllTransactionsDetailedDataModel } from 'src/app/modules/stocks/models/AllTransactionsDetailedDataModel';
 import { TransactionFullInfo } from 'src/app/modules/stocks/models/TransactionFullInfo';
-import { PortofolioService } from 'src/app/modules/stocks/services/portofolio.service';
+import { PortofolioService } from 'src/app/core/services/portofolio.service';
 
 @Component({
   selector: 'app-portofolio-detailed-transactions-browser',
@@ -27,7 +27,7 @@ export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, O
     ) {
       this.token = Guid.create().toString();
     }
- 
+
   ngOnInit(): void {
 
 
@@ -35,8 +35,8 @@ export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, O
       params => {
         this.currentTicker = params['ticker'];
         this.gatherTransactionsData = timer(1, 60000).pipe(
-          switchMap(() => 
-          
+          switchMap(() =>
+
           this.portofolioService.GatherTransactionsDetailedOneCompany(this.currentTicker))
        ).subscribe((result) => {
           this.TransactionsList = result.response;
@@ -52,7 +52,7 @@ export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, O
       token: this.token
     }).subscribe(response => {
       if(response.successful){
-        this._snackBar.open(`${model.isBuy ? 'BUY' : 'SELL'} transaction closed successfully.`, 'OK', 
+        this._snackBar.open(`${model.isBuy ? 'BUY' : 'SELL'} transaction closed successfully.`, 'OK',
         {duration: 4000});
 
         location.reload();

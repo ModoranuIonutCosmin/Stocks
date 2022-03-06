@@ -1,0 +1,13 @@
+<mat-tab-group>
+  <mat-tab label="First">
+    Content 1
+  </mat-tab>
+  <mat-tab label="Second">
+    <app-stockschart></app-stockschart>
+  </mat-tab>
+  <mat-tab label="Research">
+
+
+    <app-stocks-data-table [algorithm]="this.algorithm" [ticker]="ticker"></app-stocks-data-table>
+  </mat-tab>
+</mat-tab-group>
