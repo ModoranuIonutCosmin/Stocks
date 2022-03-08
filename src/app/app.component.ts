@@ -6,6 +6,7 @@ import {PortofolioService} from './core/services/portofolio.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserService} from './core/services/user.service';
 import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -19,9 +20,13 @@ export class AppComponent {
       map(result => result.matches),
       shareReplay()
     );
-  amountRefill!: number;
+  amountRefill: number = 0;
+  refillForm: FormGroup = this.fb.group({
+    "refill": [0, Validators.required]
+  });
 
   constructor(private breakpointObserver: BreakpointObserver,
+              private fb: FormBuilder,
               private portofolioService: PortofolioService,
               public userService: UserService,
               private _snackBar: MatSnackBar,
@@ -55,5 +60,9 @@ export class AppComponent {
     this.userService.logoutUser();
     this._snackBar.open(`You've logged out successfully`, 'OK', {duration: 1000});
     this.router.navigateByUrl('/');
+  }
+
+  refillAmountChanged(newValue: number) {
+    this.amountRefill = newValue;
   }
 }

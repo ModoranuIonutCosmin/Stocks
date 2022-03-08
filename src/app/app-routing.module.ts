@@ -4,6 +4,10 @@ import { LoggedGuard } from './core/guard/logged-guard';
 
 const routes: Routes = [
   {
+    path: '', loadChildren: () => import('./modules/news/news.module')
+      .then(m => m.NewsModule)
+  },
+  {
     path: 'stocks', loadChildren: () => import('./modules/stocks/stocks.module')
   .then(m => m.StocksModule),
   canActivate: [LoggedGuard]
@@ -16,6 +20,10 @@ const routes: Routes = [
     path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module')
   .then(m => m.DashboardModule),
   canActivate: [LoggedGuard]
+  },
+  {
+    path: 'news', loadChildren: () => import('./modules/news/news.module')
+      .then(m => m.NewsModule)
   }
 ];
 

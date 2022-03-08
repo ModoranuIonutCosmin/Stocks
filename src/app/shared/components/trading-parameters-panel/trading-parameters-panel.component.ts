@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TradingContextService} from "../../../core/services/trading-context.service";
 import {PlaceOrderService} from "../../../core/services/place-order.service";
@@ -8,16 +8,19 @@ import {PortofolioService} from "../../../core/services/portofolio.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
 import {OrderTaxesPreviewModel} from "../../../modules/stocks/models/orderPreviewModel";
-import {StockCompanyWidgetModel} from "../../../modules/stocks/models/stock-company-widget-model";
-import {Subscription, timer} from "rxjs";
-import {filter, switchMap} from "rxjs/operators";
+import {StocksSingleCompanyReport} from "../../../modules/stocks/models/stocks-single-company-report";
+import {Subscription, takeWhile, timer} from "rxjs";
+import {filter, switchMap, tap} from "rxjs/operators";
+import {TradingContextModel} from "../../../modules/stocks/models/trading-context-model";
 
 @Component({
   selector: 'app-trading-parameters-panel',
   templateUrl: './trading-parameters-panel.component.html',
   styleUrls: ['./trading-parameters-panel.component.scss']
 })
-export class TradingParametersPanelComponent implements OnInit {
+export class TradingParametersPanelComponent implements OnInit, OnDestroy {
+  alive = true;
+
 
   @Input() isBuyOrder: boolean = true;
 
@@ -39,9 +42,9 @@ export class TradingParametersPanelComponent implements OnInit {
     takeProfit: [0, [Validators.required]],
   });
 
-  tradingParametersSubscription$! : Subscription;
+  tradingParametersSubscription$!: Subscription;
   tradingParameters!: OrderTaxesPreviewModel;
-  companyModel!: StockCompanyWidgetModel;
+  companyModel!: StocksSingleCompanyReport;
   fullyLoaded: boolean = false;
 
   constructor(private fb: FormBuilder,
@@ -50,25 +53,25 @@ export class TradingParametersPanelComponent implements OnInit {
               private portofolioService: PortofolioService,
               private _snackBar: MatSnackBar,
               private dialogRef: MatDialogRef<TradingParametersPanelComponent>
-              ) {
+  ) {
     this.tradingParameters = {
-      currentPrice : 0,
-      investedAmount : 0,
-      trend : 0,
-      todayIncrement : 0,
-      weekdayTax : 0,
-      weekendTax : 0,
-      percentageExposed : 0,
-      unitsPaid : 0,
-      extraMoneyNeeded : 0,
-      stopLossMax : 0,
+      currentPrice: 0,
+      investedAmount: 0,
+      trend: 0,
+      todayIncrement: 0,
+      weekdayTax: 0,
+      weekendTax: 0,
+      percentageExposed: 0,
+      unitsPaid: 0,
+      extraMoneyNeeded: 0,
+      stopLossMax: 0,
     }
   }
 
   ngOnInit(): void {
     this.tradingContextService
       .currentTradingContext()
-      .subscribe(context => {
+      .pipe(tap(context => {
         this.availableFunds = context.funds
 
         this.investedAmount = this.placeOrderService.getInitialInvestedAmount(context.funds);
@@ -78,26 +81,42 @@ export class TradingParametersPanelComponent implements OnInit {
         this.investedStep = this.placeOrderService.getAmountChangeStep(context.funds)
         this.orderDetails.patchValue({
           investedAmount: this.investedAmount,
-          stopLoss: this.stopAmount ,
+          stopLoss: this.stopAmount,
           takeProfit: this.takeProfit
         });
-      });
-
-    this.tradingParametersSubscription$ = timer(1, 1000).pipe(
-      switchMap(() =>
-        this.portofolioService.gatherBuyOrderTaxesInfo(this.ticker,
-          this.leverageValue,  this.investedAmount))
-    ).subscribe((result) => {
-      this.tradingParameters = result;
-      this.fullyLoaded = true;
-      this.errorMessage = "";
-    }, err => {
-      this.errorMessage = err.error.detail;
+      })).subscribe((value) => {
+      this.scheduleTradinParametersInterval(value);
     });
+  }
+
+  scheduleTradinParametersInterval(context: TradingContextModel): void {
+    this.tradingParametersSubscription$ = timer(1, 1000)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe(() => {
+              this.portofolioService.gatherBuyOrderTaxesInfo(this.ticker,
+                this.leverageValue, this.investedAmount)
+                .subscribe((result) => {
+                  this.tradingParameters = result;
+                  this.fullyLoaded = true;
+                }, err => {
+                  this.errorMessage = err.error.detail;
+                  this.fullyLoaded = true;
+                })
+      })
   }
 
   onLeverageChange(value: number) {
     this.leverageValue = value;
+
+    if (this.leverageValue > 1) {
+
+      let stopLoss: number = this.placeOrderService
+        .getMinimumStopLoss(this.investedAmount, this.isBuyOrder, this.leverageValue);
+      this.orderDetails.patchValue(
+        {
+          stopLoss: stopLoss,
+        })
+    }
   }
 
   changeInvestedAmount(newValue: number) {
@@ -105,7 +124,11 @@ export class TradingParametersPanelComponent implements OnInit {
       newValue = this.placeOrderService.getInitialInvestedAmount(this.availableFunds)
     }
 
-    this.stopAmount = Math.max(this.placeOrderService.getMinimumStopLoss(newValue, this.isBuyOrder), this.stopAmount);
+    this.stopAmount = Math.min(
+        Math.max(this.placeOrderService
+          .getMinimumStopLoss(newValue, this.isBuyOrder, this.leverageValue), this.stopAmount),
+        newValue);
+
     this.investedAmount = newValue;
 
     this.orderDetails.patchValue(
@@ -118,7 +141,8 @@ export class TradingParametersPanelComponent implements OnInit {
 
 
   changeStopLossAmount(value: number) {
-    let stopLossMinimum = this.placeOrderService.getMinimumStopLoss(this.investedAmount, this.isBuyOrder);
+    let stopLossMinimum = this.placeOrderService
+      .getMinimumStopLoss(this.investedAmount, this.isBuyOrder, this.leverageValue);
     console.log(value);
     console.log(this.investedAmount);
     this.stopAmount = Math.max(stopLossMinimum, value);
@@ -133,7 +157,7 @@ export class TradingParametersPanelComponent implements OnInit {
   changeTakeProfitAmount(value: number) {
     let takeProfitMaximum = this.placeOrderService.getMaximumTakeProfit(this.investedAmount, this.isBuyOrder);
 
-    this.takeProfit = Math.max(takeProfitMaximum, value);
+    this.takeProfit = Math.min(takeProfitMaximum, value);
 
     this.orderDetails.patchValue(
       {
@@ -141,8 +165,8 @@ export class TradingParametersPanelComponent implements OnInit {
       })
   }
 
-  placeOrder() : void {
-    var transactionModel : PlaceOrderRequestModel;
+  placeOrder(): void {
+    var transactionModel: PlaceOrderRequestModel;
 
     transactionModel = {
       isBuy: this.isBuyOrder,
@@ -157,12 +181,17 @@ export class TradingParametersPanelComponent implements OnInit {
     this.portofolioService.PlaceTransactionOrder(transactionModel)
       .subscribe((response) => {
 
-        this._snackBar.open('Order placed successfully!', 'OK');
-        this.dialogRef.close();
-      },
+          this._snackBar.open('Order placed successfully!', 'OK');
+          this.dialogRef.close();
+        },
         err => {
           this.errorMessage = err.error.detail;
           this._snackBar.open(err.error.detail, 'OK');
-      });
+        });
+  }
+
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 }

@@ -1,0 +1,14 @@
+<mat-card class="newsPost">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img class="smallPostThumbnail" src="./assets/Images/Logo.png"/>
+    </div>
+    <mat-card-title>{{newsPost.title}}</mat-card-title>
+    <mat-card-subtitle>Posted at {{newsPost.date | date: 'medium'}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image
+       class ="newsPost__banner"
+       [src] = "this.newsPost.coverImageSrc" alt="News post cover">
+  <mat-card-content [innerHTML]="this.newsPost.body" class="newsPost__content">
+  </mat-card-content>
+</mat-card>

@@ -17,33 +17,50 @@
         <mat-icon mat-list-icon>trending_up</mat-icon>
         <h4 mat-line>Market</h4>
       </mat-list-item>
-      <mat-list-item routerLink="/dashboard/portofolio">
-        <mat-icon mat-list-icon>account_balance</mat-icon>
-        <h4 mat-line>Portofolio</h4>
-      </mat-list-item>
-      <mat-list-item>
+
+      <mat-list-item [routerLink]="['/news']">
         <mat-icon mat-list-icon>supervised_user_circle</mat-icon>
         <h4 mat-line>News</h4>
       </mat-list-item>
       <mat-divider></mat-divider>
-      <mat-list-item [matMenuTriggerFor]="menu">
+      <h3 matSubheader>Activity</h3>
+      <mat-list-item routerLink="/dashboard/portofolio">
+        <mat-icon mat-list-icon>account_balance</mat-icon>
+        <h4 mat-line>Portofolio</h4>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/dashboard/profile']">
         <mat-icon mat-list-icon>person</mat-icon>
         <h4 mat-line>My profile</h4>
-
-        <mat-menu #menu="matMenu" xPosition="after" yPosition="below">
-          <button mat-menu-item [routerLink]="['/dashboard/profile']">Profile</button>
-          <button mat-menu-item (click)="logout()">Logout</button>
-        </mat-menu>
       </mat-list-item>
-      <mat-divider></mat-divider>
 
+
+      <mat-list-item *ngIf="!userService.isAuthenticated()" [routerLink]="['/auth/login']">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        <h4 mat-line >Log in</h4>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="userService.isAuthenticated()" (click)="logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        <h4 mat-line >Log out</h4>
+      </mat-list-item>
     </mat-nav-list>
 
+    <mat-divider></mat-divider>
     <div *ngIf="!!userService.isAuthenticated()" class="refillBalance">
       <h4 mat-line>Refill balance</h4>
-      <input appOnlyNumber
-             [OnlyNumber]="true" type="text" [(ngModel)]="amountRefill">
-      <button (click)="refillBalance()">Proceed</button>
+      <form [formGroup]="this.refillForm" >
+        <app-numbers-only-spinbox
+          [value]="amountRefill"
+          (valueChange)="refillAmountChanged($event)"
+          [minValue]=0
+          [maxValue]=100000000000
+          [step]=10000
+          [parentForm]="this.refillForm"
+          controlName="refill"
+        ></app-numbers-only-spinbox>
+      </form>
+
+      <button type="button" (click)="refillBalance()" mat-button>Proceed</button>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

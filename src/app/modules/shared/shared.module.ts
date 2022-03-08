@@ -17,10 +17,11 @@ import {StocksDataTableComponent} from "../../shared/components/stocks-data-tabl
     StocksDataTableComponent,
 
   ],
-  exports: [
-    TradingParametersPanelComponent,
-    StocksDataTableComponent,
-  ],
+    exports: [
+        TradingParametersPanelComponent,
+        StocksDataTableComponent,
+        NumbersOnlySpinboxComponent,
+    ],
   imports: [
     CommonModule,
     FormsModule,

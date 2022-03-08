@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StockCompanyWidgetModel } from '../../models/stock-company-widget-model';
+import { StocksSingleCompanyReport } from '../../models/stocks-single-company-report';
 
 @Component({
   selector: 'app-stock-summary-item',
@@ -8,9 +8,9 @@ import { StockCompanyWidgetModel } from '../../models/stock-company-widget-model
   styleUrls: ['./stock-summary-item.component.scss']
 })
 export class StockSummaryItemComponent implements OnInit {
-  
-  @Input() model! : StockCompanyWidgetModel;
-  
+
+  @Input() model! : StocksSingleCompanyReport;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { OHLCPriceValue } from "./ohlcprice-value";
 
-export interface StockCompanyWidgetModel {
+export interface StocksSingleCompanyReport {
     ticker: string;
     name: string;
     urlLogo: string;

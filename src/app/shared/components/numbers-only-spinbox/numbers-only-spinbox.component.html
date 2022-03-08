@@ -1,6 +1,17 @@
 <div [formGroup]="this.parentForm">
-  <button (click)="decreaseAmount()">-</button>
-  <input type="number" [formControlName]="this.controlName"
-  [(ngModel)]="value"  (change)="valueChanged($event)">
-  <button (click)="increaseAmount()">+</button>
+  <button mat-icon-button  color="primary" (click)="decreaseAmount()" aria-label="Increase value">
+    <mat-icon>remove</mat-icon>
+  </button>
+
+  <mat-form-field>
+    <label for="input">
+      {{this.label}}
+    </label>
+    <input type="number" id="input" matInput [formControlName]="this.controlName"
+           [(ngModel)]="value"  (change)="valueChanged($event)">
+  </mat-form-field>
+
+  <button mat-icon-button  color="primary" (click)="increaseAmount()" aria-label="Increase value">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

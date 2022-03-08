@@ -1,5 +1,5 @@
 .sidenav{
-  width: 250px;
+  width: 300px;
 }
 
 
@@ -14,7 +14,7 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10000;
 }
 
 .mat-toolbar {
@@ -22,6 +22,7 @@
 }
 
 .refillBalance {
+  bottom: 0;
   text-align: center;
   display: flex;
   flex-direction: column;

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {StocksDataService} from "../../../../core/services/stocks-data.service";
-import {CompanyModel} from "../../models/company-model";
+import {StocksSingleCompanyReport} from "../../models/stocks-single-company-report";
 
 @Component({
   selector: 'app-research-page',
@@ -9,8 +9,7 @@ import {CompanyModel} from "../../models/company-model";
   styleUrls: ['./research-page.component.scss']
 })
 export class ResearchPageComponent implements OnInit {
-  companyData!: CompanyModel
-
+  companyData!: StocksSingleCompanyReport
 
   ///TAB3
   ticker: string = '';

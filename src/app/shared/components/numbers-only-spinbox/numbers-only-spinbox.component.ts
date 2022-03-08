@@ -23,6 +23,7 @@ export class NumbersOnlySpinboxComponent implements OnInit {
   @Output() valueChange = new EventEmitter<number>();
 
   @Input() parentForm!: FormGroup;
+  @Input() label: string = '';
   constructor() { }
 
   ngOnInit(): void {

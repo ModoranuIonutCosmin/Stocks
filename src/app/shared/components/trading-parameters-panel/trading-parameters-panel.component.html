@@ -1,12 +1,10 @@
 <div *ngIf="this.fullyLoaded">
   <form class="tradingInputsForm" [formGroup]="this.orderDetails">
-
-
     <main class="dialog">
       <header class="headerRibbon">
         <h1>Opening {{this.isBuyOrder ? 'BUY' : 'SELL'}} position for {{companyModel.ticker}}</h1>
 
-        <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+        <button class="closeButton" mat-icon-button aria-label="close dialog" mat-dialog-close>
           <mat-icon>close</mat-icon>
         </button>
       </header>
@@ -22,34 +20,37 @@
           <span>{{tradingParameters.currentPrice}}</span>
           <p>{{tradingParameters.trend}}%</p>
         </div>
-      </div>
 
-
-      <label>
-        Amount:
-      </label>
-      <app-numbers-only-spinbox [controlName]="'investedAmount'"
+      <app-numbers-only-spinbox label="Invested amount"
+                                [controlName]="'investedAmount'"
                                 [parentForm] = "this.orderDetails"
-                                [maxValue]=this.availableFunds [minValue]=1
+                                [maxValue]=this.availableFunds
+                                [minValue]=1
+                                [value]="this.investedAmount"
                                 [step]=this.investedStep
                                 (valueChange)="this.changeInvestedAmount($event)"
       ></app-numbers-only-spinbox>
-      <app-numbers-only-spinbox [controlName]="'stopLoss'"
+      <app-numbers-only-spinbox label="Stop loss"
+                                [controlName]="'stopLoss'"
                                 [parentForm] = "this.orderDetails"
                                 [maxValue]=this.investedAmount [minValue]=1
+                                [value]="this.stopAmount"
                                 [step]=this.investedStep
                                 (valueChange)="this.changeStopLossAmount($event)"
       ></app-numbers-only-spinbox>
-      <app-numbers-only-spinbox [controlName]="'takeProfit'"
+      <app-numbers-only-spinbox label="Take profit"
+                                [controlName]="'takeProfit'"
                                 [parentForm] = "this.orderDetails"
-                                [maxValue]=this.investedAmount [minValue]=1
+                                [maxValue]="50 * this.investedAmount" [minValue]=1
+                                [value]="this.takeProfit"
                                 [step]=this.investedStep
                                 (valueChange)="this.changeTakeProfitAmount($event)"
       ></app-numbers-only-spinbox>
 
       <!--  <button type="button" (click) = "check()">ssss</button>-->
 
-      <mat-button-toggle-group  (change)="onLeverageChange($event.value)">
+      <mat-button-toggle-group  class = "tradingInputControls__toggleGroup"
+        (change)="onLeverageChange($event.value)">
         <mat-button-toggle value="1" aria-label="1x">
           1x
         </mat-button-toggle>
@@ -60,27 +61,34 @@
           5x
         </mat-button-toggle>
       </mat-button-toggle-group>
-
-
+      </div>
 
     </main>
   </form>
 
 
-  <div *ngIf="tradingParameters.weekdayTax > 0" class="feesSummary">
-    <p>Weekday tax <strong>{{tradingParameters.weekdayTax}}</strong></p>
-    <p>Weekend tax <strong>{{tradingParameters.weekendTax}}</strong></p>
-    <p>Percentage exposed<strong>{{tradingParameters.percentageExposed}}</strong></p>
+  <div class="infoPanel">
+
+    <p>Units paid: <strong>{{tradingParameters.unitsPaid}}</strong></p>
+
+    <div *ngIf="tradingParameters.weekdayTax > 0" class="feesSummary">
+      <p>Weekday tax: <strong>{{tradingParameters.weekdayTax}}</strong></p>
+      <p>Weekend tax: <strong>{{tradingParameters.weekendTax}}</strong></p>
+      <p>Exposed: <strong>{{tradingParameters.percentageExposed}}%</strong></p>
+    </div>
+
+    <p>{{errorMessage}}</p>
+
+    <button mat-flat-button color="primary"
+            class = "proceedButton"
+            [disabled] = "errorMessage !== ''"
+            (click) = "placeOrder()">
+      Proceed
+    </button>
   </div>
 
-  <p>Units paid: <strong>{{tradingParameters.unitsPaid}}</strong></p>
-  <p>{{errorMessage}}</p>
 
-  <button mat-flat-button color="primary"
-          [disabled] = "errorMessage !== ''"
-          (click) = "placeOrder()">
-    Proceed
-  </button>
+
 </div>
 
 

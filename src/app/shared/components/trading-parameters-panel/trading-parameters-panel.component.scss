@@ -22,14 +22,23 @@ img {
   }
 }
 
-.tradingInputsForm{
-  label{
-    display: block;
-  }
+.mainContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
-.spinnerContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.infoPanel{
+  text-align: center;
+  min-height: 150px;
+}
+
+.closeButton{
+  margin: 5px;
+  border-radius: 0;
+}
+.proceedButton{
+  margin: 0 0 0 auto;
 }

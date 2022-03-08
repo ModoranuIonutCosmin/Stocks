@@ -13,6 +13,8 @@ import {DirectivesModule} from '../directives/directives.module';
 import {SharedModule} from "../shared/shared.module";
 import {ResearchPageComponent} from './pages/research-page/research-page.component';
 import { StockschartComponent } from './components/stockschart/stockschart.component';
+import {NgApexchartsModule} from "ng-apexcharts";
+import { CompanyInfoComponent } from './components/company-info/company-info.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { StockschartComponent } from './components/stockschart/stockschart.compo
     MarketbrowserComponent,
     ResearchPageComponent,
     StockschartComponent,
+    CompanyInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { StockschartComponent } from './components/stockschart/stockschart.compo
     FormsModule,
     DirectivesModule,
     SharedModule,
+    NgApexchartsModule
   ],
   providers: [StocksDataService, LoggedGuard, UserService, PortofolioService]
 })

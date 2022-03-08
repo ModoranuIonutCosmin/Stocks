@@ -18,12 +18,12 @@ export class PlaceOrderService {
   public getMaximumStopLoss(investedAmount: number, isBuy: boolean): number {
     return isBuy ? investedAmount : investedAmount / 2;
   }
-  public getMinimumStopLoss(investedAmount: number, isBuy: boolean): number {
-    return isBuy ? 0 : investedAmount / 2;
+  public getMinimumStopLoss(investedAmount: number, isBuy: boolean, leverage: number): number {
+    return (isBuy && leverage == 1) ? 0 : investedAmount / 2;
   }
 
   public getMaximumTakeProfit(investedAmount: number, isBuy: boolean): number {
-    return investedAmount;
+    return 50 * investedAmount;
   }
 
 }
