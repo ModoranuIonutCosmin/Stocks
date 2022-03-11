@@ -4,7 +4,9 @@
       Forecasted prices by algorithm
     </h1>
   </header>
-
+  <p class="description">Select an algorithm and observe the results of applying that specific algorithm on the historical data of this company.
+    These results are updated every week for figuring out the predicted prices for the upcoming week.
+  </p>
   <div>
     <button mat-icon-button color="primary"
             aria-label="Previous algorithm"
@@ -21,11 +23,12 @@
   </div>
 
   <p class="mat-hint">{{this.ALGS_NAMES[this.currentAlgorithmIndex]}}</p>
+
 </section>
 
 
 
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 forecastedData">
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   <table mat-table [dataSource]="dataSource">
 

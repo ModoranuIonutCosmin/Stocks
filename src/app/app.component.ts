@@ -1,12 +1,14 @@
 import {Component} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {PortofolioService} from './core/services/portofolio.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserService} from './core/services/user.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Spinner} from "@angular/cli/utilities/spinner";
+import {SpinnerService} from "./core/services/spinner.service";
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class AppComponent {
 
+  isLoading$: BehaviorSubject<boolean>;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -30,8 +33,10 @@ export class AppComponent {
               private portofolioService: PortofolioService,
               public userService: UserService,
               private _snackBar: MatSnackBar,
+              private spinnerService: SpinnerService,
               private router: Router) {
     this.amountRefill = 0;
+    this.isLoading$ = spinnerService.isLoading$;
   }
 
   refillBalance() {

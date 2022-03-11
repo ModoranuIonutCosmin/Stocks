@@ -8,10 +8,10 @@ import { ApiResponse } from 'src/app/shared/models/api-response';
 import { environment } from 'src/environments/environment';
 import { ForgotPasswordRequestModel } from '../../modules/stocks/models/ForgotPasswordRequest';
 import { ResetPasswordRequestModel } from '../../modules/stocks/models/ResetPasswordRequestModel';
-import { TradingContextModel } from '../../modules/stocks/models/trading-context-model';
 import { LoginResponseModel } from '../../modules/auth/models/login-response-model';
 import { LoginModel } from '../../modules/auth/models/LoginModel';
 import { RegisterRequestModel } from '../../modules/auth/models/register-request-model copy';
+import {ProfilePrivateData} from "../../modules/dashboard/models/profile-private-data";
 
 @Injectable()
 export class UserService {
@@ -91,5 +91,7 @@ export class UserService {
     );
   }
 
-
+  gatherProfileInfo(): Observable<ProfilePrivateData> {
+    return this.httpClient.get<ProfilePrivateData>(`${environment.baseUrl}${ApiPaths.ProfileDataGet}`)
+  }
 }

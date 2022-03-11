@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PortofolioDetailedTransactionsBrowserComponent } from './components/portofolio-detailed-transactions-browser/portofolio-detailed-transactions-browser.component';
 import { PortofolioTransactionsBrowserComponent } from './components/portofolio-transactions-browser/portofolio-transactions-browser.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import {LoggedGuard} from "../../core/guard/logged-guard";
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    canActivate: [LoggedGuard]
   }
 ];
 

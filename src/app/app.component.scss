@@ -1,5 +1,5 @@
 .sidenav{
-  width: 300px;
+  width: 265px;
 }
 
 
@@ -22,8 +22,18 @@
 }
 
 .refillBalance {
-  bottom: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+}
+
+
+mat-spinner {
+  top: 40%;
+  left: 40%;
+  z-index: 1000;
+  position: absolute;
 }

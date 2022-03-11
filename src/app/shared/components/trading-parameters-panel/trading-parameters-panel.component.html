@@ -17,8 +17,11 @@
             <h2>{{companyModel.ticker}}</h2>
             <p>{{companyModel.name}}.</p>
           </div>
-          <span>{{tradingParameters.currentPrice}}</span>
-          <p>{{tradingParameters.trend}}%</p>
+          <div class ="avatarInfo__price">
+            <strong>Price per unit: </strong>
+            <span>{{tradingParameters.currentPrice | number: '1.2-2'}}</span>
+          </div>
+
         </div>
 
       <app-numbers-only-spinbox label="Invested amount"
@@ -49,6 +52,7 @@
 
       <!--  <button type="button" (click) = "check()">ssss</button>-->
 
+        <p>Leverage</p>
       <mat-button-toggle-group  class = "tradingInputControls__toggleGroup"
         (change)="onLeverageChange($event.value)">
         <mat-button-toggle value="1" aria-label="1x">
@@ -81,7 +85,6 @@
 
     <button mat-flat-button color="primary"
             class = "proceedButton"
-            [disabled] = "errorMessage !== ''"
             (click) = "placeOrder()">
       Proceed
     </button>

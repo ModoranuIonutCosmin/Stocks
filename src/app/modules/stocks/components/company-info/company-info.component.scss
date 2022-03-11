@@ -1,14 +1,13 @@
-.company__general, .company__trend, .company__marketData{
+.company__general, .company__trend, .company__marketData {
   width: 100%;
   height: 100%;
 }
-mat-card{
+
+mat-card {
   height: 100%;
 }
-.tickerLogo{
+
+.tickerLogo {
   width: 45px;
 }
 
-@media (max-width: 600px) {
-
-}

@@ -10,10 +10,12 @@ import { Observable, throwError } from "rxjs";
 import { UserService } from "../services/user.service";
 import { catchError, map } from "rxjs/operators";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private authenticationService: UserService,
+                private snackBar: MatSnackBar,
                 private router: Router) {}
 
     intercept(
@@ -41,6 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
           ) => {
             if (httpErrorResponse.status === 401) {
               this.authenticationService.logoutUser();
+
               this.router.navigateByUrl('/auth/login');
             }
             return throwError(httpErrorResponse);

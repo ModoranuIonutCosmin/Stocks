@@ -75,7 +75,7 @@ export class TradingParametersPanelComponent implements OnInit, OnDestroy {
         this.availableFunds = context.funds
 
         this.investedAmount = this.placeOrderService.getInitialInvestedAmount(context.funds);
-        this.stopAmount = this.placeOrderService.getMaximumStopLoss(this.investedAmount, this.isBuyOrder);
+        this.stopAmount = this.placeOrderService.getMaximumStopLoss(this.investedAmount, this.leverageValue, this.isBuyOrder);
         this.takeProfit = this.investedAmount;
 
         this.investedStep = this.placeOrderService.getAmountChangeStep(context.funds)
@@ -111,7 +111,7 @@ export class TradingParametersPanelComponent implements OnInit, OnDestroy {
     if (this.leverageValue > 1) {
 
       let stopLoss: number = this.placeOrderService
-        .getMinimumStopLoss(this.investedAmount, this.isBuyOrder, this.leverageValue);
+        .getMaximumStopLoss(this.investedAmount, this.leverageValue, this.isBuyOrder);
       this.orderDetails.patchValue(
         {
           stopLoss: stopLoss,
@@ -124,10 +124,7 @@ export class TradingParametersPanelComponent implements OnInit, OnDestroy {
       newValue = this.placeOrderService.getInitialInvestedAmount(this.availableFunds)
     }
 
-    this.stopAmount = Math.min(
-        Math.max(this.placeOrderService
-          .getMinimumStopLoss(newValue, this.isBuyOrder, this.leverageValue), this.stopAmount),
-        newValue);
+    this.stopAmount = this.placeOrderService.getMaximumStopLoss(newValue, this.leverageValue, this.isBuyOrder);
 
     this.investedAmount = newValue;
 
@@ -142,7 +139,7 @@ export class TradingParametersPanelComponent implements OnInit, OnDestroy {
 
   changeStopLossAmount(value: number) {
     let stopLossMinimum = this.placeOrderService
-      .getMinimumStopLoss(this.investedAmount, this.isBuyOrder, this.leverageValue);
+      .getMinimumStopLoss(this.investedAmount);
     console.log(value);
     console.log(this.investedAmount);
     this.stopAmount = Math.max(stopLossMinimum, value);

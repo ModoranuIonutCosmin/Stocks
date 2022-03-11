@@ -1,1 +1,42 @@
-<p>user-profile works!</p>
+<mat-card>
+  <section>
+    <header>
+      <h1>Your profile</h1>
+    </header>
+
+    <form [formGroup]="this.userProfileData" class = "userInfo">
+      <mat-form-field appearance="fill">
+        <mat-label>User name</mat-label>
+        <input type="text" matInput formControlName="userName" readonly="true">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>First name</mat-label>
+        <input type="text" matInput formControlName="firstName" readonly="true">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input type="text" matInput formControlName="lastName" readonly="true">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" readonly="true">
+      </mat-form-field>
+    </form>
+
+    <strong class="capital">You have {{this.capital}} credits available for future investing. </strong>
+  </section>
+
+  <section class="actions">
+    <button mat-raised-button
+            color="primary"
+            [routerLink]="['/dashboard/portofolio']"
+    >Your portofolio</button>
+    <button mat-raised-button
+            color="primary"
+            [disabled]="this.forgotPasswordTriggered"
+            (click)="changePassword()"
+    >Change your password</button>
+  </section>
+
+
+</mat-card>

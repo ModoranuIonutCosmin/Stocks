@@ -12,6 +12,8 @@ export enum ApiPaths {
     ResetPasswordPost = `/api/1.0/Account/resetPassword`,
     ConfirmEmailPost = '/api/1.0/Account/confirmEmail',
 
+    ProfileDataGet = '/api/1.0/Profile/info',
+
 
     TradingContext = `/api/1.0/Portofolio/tradingContext`,
     PreviewOrder = `/api/1.0/Portofolio/previewPlaceOrder`,

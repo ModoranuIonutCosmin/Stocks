@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {TimestampPrice} from "../../models/timestamp-price";
-import {Time} from "@angular/common";
-import {StocksDataService} from "../../../core/services/stocks-data.service";
-import {ForecastDataModel} from "../../../modules/stocks/models/forecast-data-model";
+import {TimestampPrice} from "../../../../shared/models/timestamp-price";
+import {StocksDataService} from "../../../../core/services/stocks-data.service";
+import {ForecastDataModel} from "../../models/forecast-data-model";
 import {startWith, tap} from "rxjs/operators";
+import {timer} from "rxjs";
 
 @Component({
   selector: 'app-stocks-data-table',
@@ -58,6 +58,7 @@ export class StocksDataTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
   }
 
   appendResultsToSource(result: ForecastDataModel): void {
@@ -72,6 +73,10 @@ export class StocksDataTableComponent implements OnInit, AfterViewInit {
   }
 
   loadPage(): void {
+      if (this.ticker == '') {
+        return;
+      }
+
       this.stocksService.gatherCompanyForecastData(this.ticker,
         this.currentPage, this.itemsPerPage, this.algorithm)
         .subscribe( result => {

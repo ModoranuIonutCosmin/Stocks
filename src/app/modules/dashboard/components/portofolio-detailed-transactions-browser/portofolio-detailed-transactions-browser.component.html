@@ -1,125 +1,118 @@
-<div class="avatarDescription">
-    <img src="{{TransactionsList.urlLogo}}" />
+<main *ngIf="!(isLoading$ | async)">
+  <div class="avatarDescription" >
+    <img src="{{transactionsList.urlLogo}}"/>
     <div>
-      <h1>{{TransactionsList.ticker}}</h1>
-      <p>{{TransactionsList.name}}</p>
+      <h1>{{transactionsList.ticker}}</h1>
+      <p>{{transactionsList.name}}</p>
     </div>
-</div>
+  </div>
 
 
-
-<table mat-table [dataSource]="this.TransactionsList.transactions" class="mat-elevation-z8 mainDataTable">
-    <!-- Short info Column -->
+  <table mat-table [dataSource]="this.transactionsList.transactions" class="mat-elevation-z8 mainDataTable">
     <ng-container matColumnDef="Market">
-      <th mat-header-cell *matHeaderCellDef> Market </th>
+      <th mat-header-cell *matHeaderCellDef> Market</th>
       <td mat-cell *matCellDef="let element">
-  
+
         <div class="avatarDescription">
           <div>
             <h1>{{element.ticker}}</h1>
             <p>{{element.name}}</p>
-            <p>{{element.date}}</p>
+            <p>{{element.date | date: 'medium'}}</p>
             <p>{{element.isCFD ? 'CFD' : 'NON CFD'}}</p>
             <p>{{element.isBuy ? 'BUY' : 'SELL'}}</p>
           </div>
         </div>
       </td>
     </ng-container>
-  
-    <!-- Trend Column -->
+
     <ng-container matColumnDef="Units">
-      <th mat-header-cell *matHeaderCellDef> Units </th>
+      <th mat-header-cell *matHeaderCellDef> Units</th>
       <td mat-cell *matCellDef="let element">
-          {{element.unitsPurchased}}
+        {{element.unitsPurchased}}
       </td>
     </ng-container>
-  
-    
-    <!-- Sell Column -->
+
+
     <ng-container matColumnDef="Initial price">
-      <th mat-header-cell *matHeaderCellDef class = "sellTableHeader"> Initial price </th>
-      <td mat-cell *matCellDef="let element"> 
-            {{element.initialPrice}} 
-      </td>
-    </ng-container>
-  
-
-    <!-- Sell Column -->
-    <ng-container matColumnDef="Current price">
-        <th mat-header-cell *matHeaderCellDef class = "sellTableHeader"> Current price </th>
-        <td mat-cell *matCellDef="let element"> 
-              {{element.currentPrice}} 
-        </td>
-      </ng-container>
-
-      <!-- Sell Column -->
-    <ng-container matColumnDef="Invested amount">
-        <th mat-header-cell *matHeaderCellDef class = "sellTableHeader"> Invested amount </th>
-        <td mat-cell *matCellDef="let element"> 
-              {{element.investedAmount}} 
-        </td>
-      </ng-container>   
-
-    <!-- Buy Column -->
-    <ng-container matColumnDef="Total P/L">
-      <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Total P/L </th>
+      <th mat-header-cell *matHeaderCellDef class="sellTableHeader"> Initial price</th>
       <td mat-cell *matCellDef="let element">
-              {{element.profitOrLoss}} 
+        {{element.initialPrice}}
       </td>
     </ng-container>
 
 
-    <!-- Buy Column -->
+    <ng-container matColumnDef="Current price">
+      <th mat-header-cell *matHeaderCellDef class="sellTableHeader"> Current price</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.currentPrice}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Invested amount">
+      <th mat-header-cell *matHeaderCellDef class="sellTableHeader"> Invested amount</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.investedAmount}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Total P/L">
+      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Total P/L</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.profitOrLoss}}
+      </td>
+    </ng-container>
+
+
     <ng-container matColumnDef="Total P/L%">
-        <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Total P/L% </th>
-        <td mat-cell *matCellDef="let element">
-                {{element.profitOrLossPercentage}} 
-        </td>
-      </ng-container>
+      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Total P/L%</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.profitOrLossPercentage}}
+      </td>
+    </ng-container>
 
-    <!-- displayedColumns: string[] = ['Market', 'Units', 'Initial price', 'Current price', 'Invested amount', 'Stop loss', 'Take profit', 'Leverage', 'Total P/L', 'Total P/L%', 'Value', 'Options']; -->
-
-    <!-- Buy Column -->
     <ng-container matColumnDef="Stop loss">
-        <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Stop loss </th>
-        <td mat-cell *matCellDef="let element">
-            {{element.stopLossAmount}} 
-        </td>
+      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Stop loss</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.stopLossAmount}}
+      </td>
     </ng-container>
 
 
     <ng-container matColumnDef="Take profit">
-        <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Take profit </th>
-        <td mat-cell *matCellDef="let element">
-            {{element.takeProfitAmount}} 
-        </td>
+      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Take profit</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.takeProfitAmount}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Leverage">
-        <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Leverage </th>
-        <td mat-cell *matCellDef="let element">
-            {{element.leverage}} 
-        </td>
+      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Leverage</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.leverage}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Value">
-        <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Value </th>
-        <td mat-cell *matCellDef="let element">
-            {{element.value}} 
-        </td>
+      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Value</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.value}}
+      </td>
     </ng-container>
-  
-  
+
+
     <ng-container matColumnDef="Options">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element" width="1px">
-  
-          <button mat-icon-button (click)="closeTransaction(element)">
-              <mat-icon>close</mat-icon>
-          </button>
+
+        <button mat-icon-button (click)="closeTransaction(element)">
+          <mat-icon>close</mat-icon>
+        </button>
       </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+</main>
+
