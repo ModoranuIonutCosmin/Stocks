@@ -1,11 +1,11 @@
 <main class = "auth">
     <header>
-        <h1>Login here</h1>
-        <p>Please log in in order to have access to the full <strong>&lt;nume&gt;</strong> experience.</p>
+        <h1>Log in here</h1>
+        <p>Please log in in order to have access to most content.</p>
     </header>
-    <form [formGroup] = "loginForm" class="form" (ngSubmit) = "submit($event)"> 
+    <form [formGroup] = "loginForm" class="form" (ngSubmit) = "submit($event)">
         <mat-form-field class="form-field" appearance="outline">
-            <mat-label> 
+            <mat-label>
                 Username or e-mail
             </mat-label>
             <input matInput formControlName="userNameOrEmail" required>
@@ -14,9 +14,9 @@
               <span *ngIf="loginForm.controls.userNameOrEmail.errors?.pattern">This field is invalid.</span>
             </mat-error>
         </mat-form-field>
-    
+
         <mat-form-field class="form-field" appearance="outline">
-            <mat-label> 
+            <mat-label>
                 Password
             </mat-label>
 
@@ -34,14 +34,14 @@
             </mat-error>
         </mat-form-field>
 
-        <p>Forgot password? Click <a [routerLink]="[ '/auth/forgotPassword']"> here</a></p>
+        <p class="mat-hint forgotPasswordHint">Forgot password? Click <a [routerLink]="[ '/auth/forgotPassword']"> here</a>.</p>
 
         <div class="form__registerAdvice">
-            <p>Don't have an account?</p>
-            <p>You can create one <a [routerLink]='["/auth/register"]' [queryParams]="registerStruct">here</a>.</p>
+            <p class="mat-hint">Don't have an account?</p>
+            <p class="mat-hint">You can create one <a [routerLink]='["/auth/register"]' [queryParams]="registerStruct">here</a>.</p>
         </div>
-        
-    
+
+
         <button class="form__submit"
          [disabled]="!loginForm.valid"
          mat-flat-button color="primary">Proceed</button>

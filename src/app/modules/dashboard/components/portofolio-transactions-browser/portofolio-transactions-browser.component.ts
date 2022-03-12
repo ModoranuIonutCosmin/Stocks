@@ -5,6 +5,8 @@ import { switchMap } from 'rxjs/operators';
 import { AllTransactionsGroupedSummaryModel } from 'src/app/modules/stocks/models/AllTransactionsGroupedSummaryModel';
 import { TransactionsCompanyWidgetModel } from 'src/app/modules/stocks/models/TransactionsCompanyWidgetModel';
 import { PortofolioService } from 'src/app/core/services/portofolio.service';
+import {Spinner} from "@angular/cli/utilities/spinner";
+import {SpinnerService} from "../../../../core/services/spinner.service";
 
 @Component({
   selector: 'app-portofolio-transactions-browser',
@@ -20,6 +22,7 @@ export class PortofolioTransactionsBrowserComponent implements OnInit, OnDestroy
   gatherTransactionsData!: Subscription;
 
   constructor(private portofolioService: PortofolioService,
+    private spinnerService: SpinnerService,
     private router: Router) {
     this.TransactionsList = {
       transactions: new Array<TransactionsCompanyWidgetModel>()
@@ -29,11 +32,13 @@ export class PortofolioTransactionsBrowserComponent implements OnInit, OnDestroy
   ngOnInit(): void {
 
     this.gatherTransactionsData = timer(1, 60000).pipe(
-      switchMap(() =>
-
-        this.portofolioService.GatherGroupedTransactionsSummary())
+      switchMap(() => {
+        this.spinnerService.setLoading(true);
+        return this.portofolioService.GatherGroupedTransactionsSummary()
+      })
     ).subscribe((result) => {
       this.TransactionsList = result.response;
+      this.spinnerService.setLoading(false);
     });
   }
 

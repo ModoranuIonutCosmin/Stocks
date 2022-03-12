@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {StocksRoutingModule} from './stocks-routing.module';
-import {StockSummaryItemComponent} from './components/stock-summary-item/stock-summary-item.component';
 import {MaterialModule} from '../material/material.module';
 import {MarketbrowserComponent} from './components/marketbrowser/marketbrowser.component';
 import {StocksDataService} from '../../core/services/stocks-data.service';
@@ -18,7 +17,6 @@ import { CompanyInfoComponent } from './components/company-info/company-info.com
 
 @NgModule({
   declarations: [
-    StockSummaryItemComponent,
     MarketbrowserComponent,
     ResearchPageComponent,
     StockschartComponent,

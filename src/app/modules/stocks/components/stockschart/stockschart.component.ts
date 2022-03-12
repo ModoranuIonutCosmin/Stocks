@@ -1,8 +1,10 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {ChartComponent} from "ng-apexcharts";
-import {ChartOptions} from "./chart-options";
 import {OHLCPriceValue} from "../../models/ohlcprice-value";
 import {StocksDataService} from "../../../../core/services/stocks-data.service";
+import {ChartOptions} from "../../models/chart-options";
+import {SpinnerService} from "../../../../core/services/spinner.service";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-stockschart',
@@ -10,50 +12,34 @@ import {StocksDataService} from "../../../../core/services/stocks-data.service";
   styleUrls: ['./stockschart.component.scss']
 })
 export class StockschartComponent {
-  private _dataSet : OHLCPriceValue[] = []
-
+  @ViewChild("container") container !: HTMLDivElement;
 
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: ChartOptions;
   @Input() ticker: string = 'company'
-  @Input() set dataSet(value: OHLCPriceValue[])
-  {
-    this._dataSet = value;
-    var formattedData = this._dataSet.map(timepoint => {
-      return {
-        x: timepoint.date,
-        y: [timepoint.openValue, timepoint.high, timepoint.low, timepoint.closeValue]
-      }
-    });
+  dataSet: OHLCPriceValue[] = []
 
-    console.log(formattedData);
+  isLoading$: BehaviorSubject<boolean>;
 
-    this.chartOptions.series =
-      [
-        {
-          name: "candle",
-          data: formattedData
-        }
-      ]
-    this.chartOptions.title = {
-        text: "CandleStick Chart for " + this.ticker,
-        align: "left"
-    }
-  }
+  constructor(private stocksService: StocksDataService,
+              private spinnerService: SpinnerService) {
+    this.isLoading$ = spinnerService.isLoading$;
 
-  constructor(private stocksService: StocksDataService) {
     this.chartOptions = {
       series: [
         {
           name: "candle",
-          data: [
-          ]
+          data: this.dataSet.map(timepoint => {
+            return {
+              x: timepoint.date,
+              y: [timepoint.openValue, timepoint.high, timepoint.low, timepoint.closeValue]
+            }
+          })
         }
       ],
       chart: {
         type: "candlestick",
         height: 350,
-        width: 500
       },
       title: {
         text: "CandleStick Chart for " + this.ticker,
@@ -72,10 +58,34 @@ export class StockschartComponent {
   }
 
   ngAfterViewInit() {
+    this.spinnerService.setLoading(true);
     this.stocksService
       .GatherCompanyHistoricalData(this.ticker, "1d")
       .subscribe(result => {
+        this.spinnerService.setLoading(false);
         this.dataSet = result.timepoints;
+        this.chart.updateOptions({
+          title: {
+            text: "CandleStick Chart for " + this.ticker
+          }
+        })
+        this.chartOptions.series = [{
+          name: "candle",
+          data:  this.dataSet.map(timepoint => {
+            return {
+              x: timepoint.date,
+              y: [timepoint.openValue, timepoint.high, timepoint.low, timepoint.closeValue]
+            }
+          })
+
+        }]
       })
+
+
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'))
+    }, 1000)
+
   }
+
 }

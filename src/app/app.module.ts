@@ -1,21 +1,22 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './modules/material/material.module';
-import { LayoutModule } from '@angular/cdk/layout';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './core/interceptors/AuthHttpInterceptor';
-import { UserService } from './core/services/user.service';
-import { DirectivesModule } from './modules/directives/directives.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from './modules/material/material.module';
+import {LayoutModule} from '@angular/cdk/layout';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from './core/interceptors/AuthHttpInterceptor';
+import {UserService} from './core/services/user.service';
+import {DirectivesModule} from './modules/directives/directives.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { PortofolioService } from './core/services/portofolio.service';
-import { LoggedGuard } from './core/guard/logged-guard';
+import {PortofolioService} from './core/services/portofolio.service';
+import {LoggedGuard} from './core/guard/logged-guard';
 import {PlaceOrderService} from "./core/services/place-order.service";
 import {TradingContextService} from "./core/services/trading-context.service";
 import {SharedModule} from "./modules/shared/shared.module";
+import {SpinnerService} from "./core/services/spinner.service";
 
 @NgModule({
   declarations: [
@@ -33,18 +34,19 @@ import {SharedModule} from "./modules/shared/shared.module";
     SharedModule,
     ReactiveFormsModule,
   ],
-    exports: [
-    ],
+  exports: [],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
   },
-UserService,
-PortofolioService,
+    UserService,
+    PortofolioService,
     PlaceOrderService,
     TradingContextService,
-LoggedGuard],
+    SpinnerService,
+    LoggedGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

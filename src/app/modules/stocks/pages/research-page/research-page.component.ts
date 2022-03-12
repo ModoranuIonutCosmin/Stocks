@@ -9,7 +9,23 @@ import {StocksSingleCompanyReport} from "../../models/stocks-single-company-repo
   styleUrls: ['./research-page.component.scss']
 })
 export class ResearchPageComponent implements OnInit {
-  companyData!: StocksSingleCompanyReport
+  companyData: StocksSingleCompanyReport = {
+    ticker: '',
+    name: '',
+    description: '',
+    urlLogo: '',
+    period: 1000,
+    buyPrice: 10,
+    sellPrice: 9,
+    trend: 0.01,
+    timepoint: {
+      low: 6,
+      high: 12,
+      closeValue: 11,
+      openValue: 8,
+      date: new Date()
+    }
+  }
 
   ///TAB3
   ticker: string = '';

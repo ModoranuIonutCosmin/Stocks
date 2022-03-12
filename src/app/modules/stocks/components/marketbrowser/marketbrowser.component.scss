@@ -1,50 +1,63 @@
-.mainDataTable{
-    width: 100%;
-    height: 100%;
+.avatarDescription {
+  word-break: break-word;
+  text-overflow: ellipsis;
 }
 
 
-img{
-    width: 45px;
-    height: 45px;
+.mainDataTable {
+  width: 100%;
 }
 
-.avatarDescription{
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
+tr.table-row {
+  height: 30px;
+}
 
-    div{
-        margin: 5px;
-        *{
-            margin: 0;
-        }
+.table-row:hover {
+  cursor: pointer;
+  background-color: #efefef;
+}
+
+img {
+  width: 45px;
+  height: 45px;
+}
+
+.avatarDescription {
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+
+  div {
+    margin: 5px;
+
+    * {
+      margin: 0;
     }
+  }
 }
 
-.upTrend{
-    color: green;
-}
-.downTrend{
-    color: red;
+.upTrend {
+  color: green;
 }
 
-.sellTableHeader, .buyTableHeader{
+.downTrend {
+  color: red;
+}
+
+.sellTableHeader, .buyTableHeader {
+  text-align: center;
+}
+
+.align-center{
     text-align: center;
+    justify-content:  center;
+}
+.buyCell, .sellCell {
+  width: 90%;
+  min-width: 10px !important;
+  padding: 2px !important;
 }
 
-.buyCell, .sellCell{
-    border-radius: 1px;
-    width: 90%;
-    text-align: center;
-    padding: 5px 0;
-}
 
-.buyCell{
-    background-color: green;
-}
 
-.sellCell{
-    background-color: red;
-}

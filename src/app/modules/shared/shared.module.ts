@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NumbersOnlySpinboxComponent} from "../../shared/components/numbers-only-spinbox/numbers-only-spinbox.component";
 import {
   TradingParametersPanelComponent
 } from "../../shared/components/trading-parameters-panel/trading-parameters-panel.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MaterialModule} from "../material/material.module";
-import {StocksDataTableComponent} from "../../shared/components/stocks-data-table/stocks-data-table.component";
-
+import {StocksDataTableComponent} from "../stocks/components/stocks-data-table/stocks-data-table.component";
 
 
 @NgModule({
@@ -17,11 +16,11 @@ import {StocksDataTableComponent} from "../../shared/components/stocks-data-tabl
     StocksDataTableComponent,
 
   ],
-    exports: [
-        TradingParametersPanelComponent,
-        StocksDataTableComponent,
-        NumbersOnlySpinboxComponent,
-    ],
+  exports: [
+    TradingParametersPanelComponent,
+    StocksDataTableComponent,
+    NumbersOnlySpinboxComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,4 +28,5 @@ import {StocksDataTableComponent} from "../../shared/components/stocks-data-tabl
     MaterialModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

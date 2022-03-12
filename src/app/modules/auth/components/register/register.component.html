@@ -1,11 +1,11 @@
 <main class = "auth">
     <header>
         <h1>Register here</h1>
-        <p>Please register here in order to have access to the full <strong>&lt;nume&gt;</strong> experience.</p>
+        <p>Please register here in order to have access to most content.</p>
     </header>
-    <form [formGroup] = "registerForm" class="form" (ngSubmit) = "submit($event)"> 
+    <form [formGroup] = "registerForm" class="form" (ngSubmit) = "submit($event)">
         <mat-form-field class="form-field" appearance="outline">
-            <mat-label> 
+            <mat-label>
                 Username
             </mat-label>
             <input matInput formControlName="userName" required>
@@ -16,7 +16,7 @@
 
         <div class = "name">
             <mat-form-field class="form-field" appearance="outline">
-                <mat-label> 
+                <mat-label>
                     First Name
                 </mat-label>
                 <input matInput formControlName="firstName" required>
@@ -24,9 +24,9 @@
                   <span *ngIf="registerForm.controls.firstName.errors?.required">This field is mandatory.</span>
                 </mat-error>
             </mat-form-field>
-    
+
             <mat-form-field class="form-field" appearance="outline">
-                <mat-label> 
+                <mat-label>
                     Last name
                 </mat-label>
                 <input matInput formControlName="lastName" required>
@@ -37,7 +37,7 @@
         </div>
 
         <mat-form-field class="form-field" appearance="outline">
-            <mat-label> 
+            <mat-label>
                 E-mail
             </mat-label>
             <input matInput formControlName="email" required>
@@ -46,37 +46,37 @@
               <span *ngIf="registerForm.controls.email.errors?.pattern">This field is invalid.</span>
             </mat-error>
         </mat-form-field>
-    
+
         <div class="password">
             <mat-form-field class="form-field" appearance="outline">
-                <mat-label> 
+                <mat-label>
                     Password
                 </mat-label>
-    
+
                 <input matInput placeholder="Password" spellcheck="false" [type]="hidePassword ? 'password' : 'text'"
                  formControlName="password" required>
-    
+
                 <mat-icon matSuffix (click)="hidePassword = !hidePassword">
                     {{hidePassword ? 'visibility_off' : 'visibility'}}
                 </mat-icon>
-    
+
                 <mat-error *ngIf="registerForm.controls.password.touched && registerForm.controls.password.invalid">
                     <span *ngIf="registerForm.controls.password.errors?.required">This field is mandatory.</span>
                 </mat-error>
             </mat-form-field>
-    
-    
+
+
             <mat-form-field class="form-field" appearance="outline">
-                <mat-label> 
+                <mat-label>
                     Confirm password
                 </mat-label>
-    
+
                 <input matInput placeholder="Password" spellcheck="false"
                  formControlName="passwordAgain"
                  type = "password"
                  required>
-    
-                <mat-error 
+
+                <mat-error
                 *ngIf="registerForm.controls.passwordAgain.touched && registerForm.controls.passwordAgain.invalid"
                 >
                   <span *ngIf="registerForm.controls.passwordAgain.errors?.required">This field is mandatory.</span>

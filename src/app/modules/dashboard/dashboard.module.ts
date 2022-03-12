@@ -8,6 +8,7 @@ import { PortofolioService } from '../../core/services/portofolio.service';
 import { UserService } from '../../core/services/user.service';
 import { PortofolioDetailedTransactionsBrowserComponent } from './components/portofolio-detailed-transactions-browser/portofolio-detailed-transactions-browser.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
   imports: [
     CommonModule,
     MaterialModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [UserService, PortofolioService]
 })

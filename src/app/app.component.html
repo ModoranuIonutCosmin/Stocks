@@ -5,7 +5,7 @@
                [opened]="(isHandset$ | async) == false">
     <mat-toolbar>
       <div class="trademark">
-        <img src="assets/Images/Logo.png" width="50px">
+        <img src="assets/Images/Logo.png" width="45px" alt="site logo">
         <span> Stockerize </span>
       </div>
       <mat-divider></mat-divider>
@@ -75,6 +75,8 @@
       </button>
 
     </mat-toolbar>
+
+    <mat-spinner *ngIf="(this.isLoading$ | async)"></mat-spinner>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 

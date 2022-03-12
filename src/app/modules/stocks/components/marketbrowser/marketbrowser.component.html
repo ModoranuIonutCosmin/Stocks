@@ -1,11 +1,13 @@
 
-<table mat-table [dataSource]="this.stockMarketList" class="mat-elevation-z8 mainDataTable">
+<table mat-table [dataSource]="this.stockMarketList"
+       *ngIf="!(isLoading$ | async)"
+       class="mat-elevation-z8 mainDataTable">
   <ng-container matColumnDef="Market">
     <th mat-header-cell *matHeaderCellDef> Market </th>
     <td mat-cell *matCellDef="let element" (click) = "navigateToCompanyPage(element)">
 
       <div class="avatarDescription">
-        <img src="{{element.urlLogo}}" />
+        <img src="{{element.urlLogo}}"  alt=""/>
         <div>
           <h1>{{element.ticker}}</h1>
           <p>{{element.name}}</p>
@@ -15,9 +17,9 @@
   </ng-container>
 
   <!-- Trend Column -->
-  <ng-container matColumnDef="Trend">
-    <th mat-header-cell *matHeaderCellDef> Trend </th>
-    <td mat-cell *matCellDef="let element">
+  <ng-container matColumnDef="Trend" >
+    <th mat-header-cell *matHeaderCellDef [hidden]="isHandset$ | async"> Trend </th>
+    <td mat-cell *matCellDef="let element" [hidden]="isHandset$ | async">
       <p *ngIf="element.trend >= 0" class="upTrend">
         <mat-icon mat-list-icon inline=true>trending_up</mat-icon>
         {{element.trend}}%
@@ -32,21 +34,28 @@
 
   <!-- Sell Column -->
   <ng-container matColumnDef="Sell">
-    <th mat-header-cell *matHeaderCellDef class = "sellTableHeader"> Sell </th>
-    <td mat-cell *matCellDef="let element">
-        <div class = "sellCell" (click) = "handleSell(element)">
-            {{element.sellPrice}}
-        </div>
+    <th mat-header-cell *matHeaderCellDef class = "align-center"> Sell </th>
+    <td mat-cell *matCellDef="let element" class = "align-center">
+      <button mat-flat-button
+              type="button"
+              color="warn"
+              class = "sellCell" (click) = "handleSell(element)">
+        {{element.sellPrice}}
+      </button>
     </td>
   </ng-container>
 
   <!-- Buy Column -->
-  <ng-container matColumnDef="Buy">
-    <th mat-header-cell *matHeaderCellDef class = "buyTableHeader"> Buy </th>
-    <td mat-cell *matCellDef="let element">
-        <div class = "buyCell" (click) = "handleBuy(element)">
-            {{element.buyPrice}}
-        </div>
+  <ng-container matColumnDef="Buy"  >
+    <th mat-header-cell *matHeaderCellDef class = "align-center"> Buy </th>
+    <td mat-cell *matCellDef="let element" class="align-center">
+      <button mat-flat-button
+              type="button"
+              color="primary"
+              class="buyCell"
+              (click) = "handleBuy(element)">
+        {{element.buyPrice}}
+      </button>
     </td>
   </ng-container>
 
@@ -65,9 +74,9 @@
                     <mat-icon>settings</mat-icon>
                     <span>Notify</span>
                   </button>
-                  <button mat-menu-item>
+                  <button mat-menu-item [routerLink]="['/stocks/summary/' + name]">
                     <mat-icon>info</mat-icon>
-                    <span>Historical Data {{name}}</span>
+                    <span>Research for {{name}}</span>
                   </button>
             </ng-template>
           </mat-menu>
@@ -75,5 +84,6 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      class = "table-row" ></tr>
 </table>
