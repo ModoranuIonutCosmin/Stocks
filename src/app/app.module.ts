@@ -17,6 +17,7 @@ import {PlaceOrderService} from "./core/services/place-order.service";
 import {TradingContextService} from "./core/services/trading-context.service";
 import {SharedModule} from "./modules/shared/shared.module";
 import {SpinnerService} from "./core/services/spinner.service";
+import {ServerDownInterceptor} from "./core/interceptors/server-down.interceptor";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,11 @@ import {SpinnerService} from "./core/services/spinner.service";
     useClass: AuthInterceptor,
     multi: true
   },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerDownInterceptor,
+      multi: true
+    },
     UserService,
     PortofolioService,
     PlaceOrderService,

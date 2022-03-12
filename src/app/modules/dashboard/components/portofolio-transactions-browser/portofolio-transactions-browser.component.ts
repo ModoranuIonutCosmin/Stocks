@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, timer } from 'rxjs';
+import {BehaviorSubject, Subscription, timer} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AllTransactionsGroupedSummaryModel } from 'src/app/modules/stocks/models/AllTransactionsGroupedSummaryModel';
 import { TransactionsCompanyWidgetModel } from 'src/app/modules/stocks/models/TransactionsCompanyWidgetModel';
 import { PortofolioService } from 'src/app/core/services/portofolio.service';
-import {Spinner} from "@angular/cli/utilities/spinner";
 import {SpinnerService} from "../../../../core/services/spinner.service";
 
 @Component({
@@ -21,9 +20,12 @@ export class PortofolioTransactionsBrowserComponent implements OnInit, OnDestroy
 
   gatherTransactionsData!: Subscription;
 
+  isLoading$: BehaviorSubject<boolean>;
+
   constructor(private portofolioService: PortofolioService,
     private spinnerService: SpinnerService,
     private router: Router) {
+    this.isLoading$ = spinnerService.isLoading$;
     this.TransactionsList = {
       transactions: new Array<TransactionsCompanyWidgetModel>()
     }
@@ -37,7 +39,7 @@ export class PortofolioTransactionsBrowserComponent implements OnInit, OnDestroy
         return this.portofolioService.GatherGroupedTransactionsSummary()
       })
     ).subscribe((result) => {
-      this.TransactionsList = result.response;
+      this.TransactionsList = result;
       this.spinnerService.setLoading(false);
     });
   }
@@ -46,6 +48,11 @@ export class PortofolioTransactionsBrowserComponent implements OnInit, OnDestroy
     this.router.navigate(['/dashboard/portofolio', ticker]);
   }
 
+
+
+  transactionsPresent(): boolean {
+    return this.TransactionsList?.transactions?.length > 0
+  }
   ngOnDestroy(): void {
     this.gatherTransactionsData.unsubscribe();
   }

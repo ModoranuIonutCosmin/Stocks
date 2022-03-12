@@ -48,22 +48,22 @@ export class PortofolioService {
   }
 
 
-  public GatherGroupedTransactionsSummary(): Observable<ApiResponse<AllTransactionsGroupedSummaryModel>> {
+  public GatherGroupedTransactionsSummary(): Observable<AllTransactionsGroupedSummaryModel> {
 
-    return this.httpClient.get<ApiResponse<AllTransactionsGroupedSummaryModel>>
+    return this.httpClient.get<AllTransactionsGroupedSummaryModel>
       (`${environment.baseUrl}${ApiPaths.TransactionsGrouped}`)
       ;
   }
 
-  public GatherTransactionsDetailedOneCompany(ticker: string): Observable<ApiResponse<AllTransactionsDetailedDataModel>> {
+  public GatherTransactionsDetailedOneCompany(ticker: string): Observable<AllTransactionsDetailedDataModel> {
 
-    return this.httpClient.get<ApiResponse<AllTransactionsDetailedDataModel>>
+    return this.httpClient.get<AllTransactionsDetailedDataModel>
       (`${environment.baseUrl}${ApiPaths.TransactionsParticular}${ticker}`);
   }
 
-  public CloseTransaction(requestBody: CloseTransactionRequestModel): Observable<ApiResponse<CloseTransactionRequestModel>>{
+  public CloseTransaction(requestBody: CloseTransactionRequestModel): Observable<CloseTransactionRequestModel>{
     return this.httpClient
-    .post<ApiResponse<CloseTransactionRequestModel>>(`${environment.baseUrl}${ApiPaths.CloseTransactionPost}`,
+    .post<CloseTransactionRequestModel>(`${environment.baseUrl}${ApiPaths.CloseTransactionPost}`,
     requestBody);
   }
 
