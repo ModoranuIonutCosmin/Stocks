@@ -1,5 +1,6 @@
 
-<table mat-table [dataSource]="this.TransactionsList.transactions" class="mat-elevation-z8 mainDataTable">
+<table mat-table [dataSource]="this.TransactionsList.transactions"
+       class="mat-elevation-z8 mainDataTable" *ngIf="!(isLoading$ | async) && this.transactionsPresent()">
 
     <ng-container matColumnDef="Market">
       <th mat-header-cell *matHeaderCellDef> Market </th>
@@ -87,3 +88,13 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
   </table>
+
+  <article>
+    <header>
+      <h2 *ngIf="!(isLoading$ | async) && !this.transactionsPresent()" class="userHint">
+        <p>Transactions you open in the '<strong>Market</strong>' tab appear here.</p>
+        <p>You can track your opened position's profitability here.</p>
+      </h2>
+    </header>
+  </article>
+

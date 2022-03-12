@@ -19,11 +19,8 @@ export class StockschartComponent {
   @Input() ticker: string = 'company'
   dataSet: OHLCPriceValue[] = []
 
-  isLoading$: BehaviorSubject<boolean>;
 
-  constructor(private stocksService: StocksDataService,
-              private spinnerService: SpinnerService) {
-    this.isLoading$ = spinnerService.isLoading$;
+  constructor(private stocksService: StocksDataService) {
 
     this.chartOptions = {
       series: [
@@ -58,11 +55,9 @@ export class StockschartComponent {
   }
 
   ngAfterViewInit() {
-    this.spinnerService.setLoading(true);
     this.stocksService
       .GatherCompanyHistoricalData(this.ticker, "1d")
       .subscribe(result => {
-        this.spinnerService.setLoading(false);
         this.dataSet = result.timepoints;
         this.chart.updateOptions({
           title: {
@@ -82,7 +77,7 @@ export class StockschartComponent {
       })
 
 
-    setTimeout(() => {
+    setInterval(() => {
       window.dispatchEvent(new Event('resize'))
     }, 1000)
 

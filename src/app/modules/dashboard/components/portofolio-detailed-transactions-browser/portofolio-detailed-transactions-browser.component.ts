@@ -45,7 +45,7 @@ export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, O
             this.portofolioService.GatherTransactionsDetailedOneCompany(this.currentTicker))
         ).subscribe((result) => {
           this.spinnerService.setLoading(false);
-          this.transactionsList = result.response;
+          this.transactionsList = result;
         });
 
       }
@@ -57,14 +57,12 @@ export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, O
       id: model.id,
       token: this.token
     }).subscribe(response => {
-      if (response.successful) {
-        this._snackBar.open(`${model.isBuy ? 'BUY' : 'SELL'} transaction closed successfully.`, 'OK',
-          {duration: 4000});
+      this._snackBar.open(`${model.isBuy ? 'BUY' : 'SELL'} transaction closed successfully.`, 'OK',
+        {duration: 4000});
 
-        location.reload();
-      } else {
+      location.reload();
+    }, err => {
         this._snackBar.open('Transaction closing failed.', 'OK');
-      }
     })
   }
 
