@@ -18,6 +18,8 @@ import {TradingContextService} from "./core/services/trading-context.service";
 import {SharedModule} from "./modules/shared/shared.module";
 import {SpinnerService} from "./core/services/spinner.service";
 import {ServerDownInterceptor} from "./core/interceptors/server-down.interceptor";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,12 @@ import {ServerDownInterceptor} from "./core/interceptors/server-down.interceptor
     FormsModule,
     SharedModule,
     ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   exports: [],
   providers: [{
