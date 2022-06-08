@@ -1,10 +1,5 @@
-
-<div id="charts" #container>
-  <apx-chart #chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [xaxis]="chartOptions.xaxis"
-    [yaxis]="chartOptions.yaxis"
-    [title]="chartOptions.title"
-  ></apx-chart>
-</div>
+<highcharts-chart id="chart" style="width: 100%; display: block" [Highcharts]="this.highcharts" 
+  [constructorType]="'stockChart'"
+  [options]="this.chartOptions"
+  [(update)]="this.updateFlag">
+</highcharts-chart>

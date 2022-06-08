@@ -20,6 +20,8 @@ import {SpinnerService} from "./core/services/spinner.service";
 import {ServerDownInterceptor} from "./core/interceptors/server-down.interceptor";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { SubscriptionsService } from './core/services/subscription/subscription.service';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { environment } from '../environments/environment';
     DirectivesModule,
     FormsModule,
     SharedModule,
+    HighchartsChartModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

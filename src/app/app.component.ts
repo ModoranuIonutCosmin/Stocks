@@ -9,6 +9,8 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Spinner} from "@angular/cli/utilities/spinner";
 import {SpinnerService} from "./core/services/spinner.service";
+import { SubscriptionsService } from './core/services/subscription/subscription.service';
+import { Subscription } from './modules/dashboard/models/subscription';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,8 @@ export class AppComponent {
       map(result => result.matches),
       shareReplay()
     );
+
+  subscription$!: BehaviorSubject<Subscription>;
   amountRefill: number = 0;
   refillForm: FormGroup = this.fb.group({
     "refill": [0, Validators.required]
@@ -33,10 +37,12 @@ export class AppComponent {
               private portofolioService: PortofolioService,
               public userService: UserService,
               private _snackBar: MatSnackBar,
+              private subscriptionService: SubscriptionsService,
               private spinnerService: SpinnerService,
               private router: Router) {
     this.amountRefill = 0;
     this.isLoading$ = spinnerService.isLoading$;
+    this.subscription$ = this.subscriptionService.userSubscription;
   }
 
   refillBalance() {

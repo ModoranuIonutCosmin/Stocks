@@ -3,9 +3,38 @@
     <app-company-info [companyInfo]="this.companyData"></app-company-info>
   </mat-tab>
   <mat-tab label="Historical data">
-    <app-stockschart [ticker]="this.ticker" ></app-stockschart>
+    <ng-template matTabContent>
+      <app-stockschart [ticker]="this.ticker"></app-stockschart>
+    </ng-template>
   </mat-tab>
-  <mat-tab label="Research">
-    <app-stocks-data-table [algorithm]="this.algorithm" [ticker]="ticker"></app-stocks-data-table>
+  <mat-tab>
+
+    <ng-template mat-tab-label>
+      Research
+      <mat-icon class="subscription_icon" *ngIf="((this.userSubscription | async)?.status ?? '') != 'active'">lock
+      </mat-icon>
+    </ng-template>
+
+    <ng-template matTabContent>
+      <div class="research" *ngIf="((this.userSubscription | async)?.status ?? '') != 'active'">
+
+        <div class="blurredContent">
+          <div class="blurredImage"></div>
+          <div class="subscriptionAdvice">
+            <div>
+              <header>
+                <h1>This page is only available to subscribed users.</h1>
+              </header>
+              <p>Subscribe <a [routerLink]="['/membership/aquire']">here</a>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <app-stocks-data-table *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'"
+        [algorithm]="this.algorithm" [ticker]="ticker"></app-stocks-data-table>
+    </ng-template>
+
+
   </mat-tab>
 </mat-tab-group>

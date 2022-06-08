@@ -6,12 +6,20 @@
     <mat-toolbar>
       <div class="trademark">
         <img src="assets/Images/Logo.png" width="45px" alt="site logo">
-        <span> Stockerize </span>
+        <span> Stocks Research </span>
       </div>
       <mat-divider></mat-divider>
     </mat-toolbar>
     <mat-nav-list>
-
+      <mat-list-item *ngIf="userService.isAuthenticated() && ((this.subscription$ | async)?.status != 'active')" 
+      routerLink="/membership/aquire">
+          <mat-icon mat-list-icon>subscriptions</mat-icon>
+          <h4 mat-line>Become PRO</h4>
+      </mat-list-item>
+      <mat-list-item *ngIf="(this.subscription$ | async)?.status == 'active'" routerLink="/membership/success">
+        <mat-icon mat-list-icon>subscriptions</mat-icon>
+        <h4 mat-line>Manage subscription</h4>
+    </mat-list-item>
       <h3 matSubheader>Research area</h3>
       <mat-list-item routerLink="/stocks/market">
         <mat-icon mat-list-icon>trending_up</mat-icon>

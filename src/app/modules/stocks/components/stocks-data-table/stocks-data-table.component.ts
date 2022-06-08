@@ -76,7 +76,7 @@ export class StocksDataTableComponent implements OnInit, AfterViewInit {
       if (this.ticker == '') {
         return;
       }
-
+      this.isLoading = true;
       this.stocksService.gatherCompanyForecastData(this.ticker,
         this.currentPage, this.itemsPerPage, this.algorithm)
         .subscribe( result => {

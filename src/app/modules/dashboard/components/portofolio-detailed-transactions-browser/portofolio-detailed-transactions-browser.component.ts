@@ -2,12 +2,14 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import {Guid} from 'guid-typescript';
-import {BehaviorSubject, Subscription, timer} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {BehaviorSubject, Observable, Subscription, timer} from 'rxjs';
+import {delay, map, shareReplay, switchMap} from 'rxjs/operators';
 import {AllTransactionsDetailedDataModel} from 'src/app/modules/stocks/models/AllTransactionsDetailedDataModel';
 import {TransactionFullInfo} from 'src/app/modules/stocks/models/TransactionFullInfo';
 import {PortofolioService} from 'src/app/core/services/portofolio.service';
 import {SpinnerService} from "../../../../core/services/spinner.service";
+import { TableColumnDefinition } from 'src/app/shared/models/table-column-definition';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-portofolio-detailed-transactions-browser',
@@ -16,18 +18,49 @@ import {SpinnerService} from "../../../../core/services/spinner.service";
 })
 export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['Market', 'Units', 'Initial price', 'Current price', 'Invested amount', 'Stop loss', 'Take profit', 'Leverage', 'Total P/L', 'Total P/L%', 'Value', 'Options'];
+  displayedColumns: TableColumnDefinition[] = 
+  [{ name: 'Market', showMobile: true },
+   { name: 'Units', showMobile: false },
+   { name: 'Initial price',showMobile: true },
+   { name: 'Current price',showMobile: true },
+   { name:  'Invested amount',showMobile: true },
+   { name:  'Stop loss',showMobile: false },
+   { name:  'Take profit',showMobile: false },
+   { name: 'Leverage',showMobile: false },
+   { name:  'Total P/L',showMobile: true },
+   { name:   'Total P/L%',showMobile: false },
+   { name:    'Value',showMobile: true },
+   { name:     'Options',     showMobile: true }];
+
+  
+
   currentTicker!: string;
   transactionsList!: AllTransactionsDetailedDataModel;
   gatherTransactionsData!: Subscription;
   token: string;
 
   isLoading$ : BehaviorSubject<boolean>;
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  isMobile: boolean = false;
+
+  get columnDefinitions(): string[] {
+    return this.displayedColumns
+      .filter((val, index) => {
+        return !this.isMobile || val.showMobile;
+      })
+      .map((val) => val.name);
+  }
 
   constructor(private portofolioService: PortofolioService,
               private activatedRoute: ActivatedRoute,
               private _snackBar: MatSnackBar,
-              private spinnerService: SpinnerService) {
+              private spinnerService: SpinnerService,
+              public breakpointObserver: BreakpointObserver) {
     this.token = Guid.create().toString();
     this.isLoading$ = spinnerService.isLoading$;
   }
@@ -39,9 +72,9 @@ export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, O
       params => {
         this.spinnerService.setLoading(true);
         this.currentTicker = params['ticker'];
-        this.gatherTransactionsData = timer(1, 60000).pipe(
+        this.gatherTransactionsData = timer(1, 60000)
+        .pipe(
           switchMap(() =>
-
             this.portofolioService.GatherTransactionsDetailedOneCompany(this.currentTicker))
         ).subscribe((result) => {
           this.spinnerService.setLoading(false);
@@ -50,6 +83,10 @@ export class PortofolioDetailedTransactionsBrowserComponent implements OnInit, O
 
       }
     );
+
+    this.isHandset$.subscribe((isMobile) => {
+      this.isMobile = isMobile
+    })
   }
 
   closeTransaction(model: TransactionFullInfo) {

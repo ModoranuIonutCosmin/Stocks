@@ -2,6 +2,10 @@
   width: 265px;
 }
 
+body {
+  margin: 0
+}
+
 
 .sidenav-container {
   height: 100%;
@@ -15,6 +19,7 @@
   position: sticky;
   top: 0;
   z-index: 10000;
+  width: 100% !important;
 }
 
 .mat-toolbar {

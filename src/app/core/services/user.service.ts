@@ -12,8 +12,9 @@ import { LoginResponseModel } from '../../modules/auth/models/login-response-mod
 import { LoginModel } from '../../modules/auth/models/LoginModel';
 import { RegisterRequestModel } from '../../modules/auth/models/register-request-model copy';
 import {ProfilePrivateData} from "../../modules/dashboard/models/profile-private-data";
+import { Subscription } from 'src/app/modules/dashboard/models/subscription';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UserService {
   tokenKey : string = "token";
   currentToken: string;
@@ -53,13 +54,19 @@ export class UserService {
           this.currentUser = result;
           console.log(result);
           localStorage.setItem('token', result.token);
-
+          this.updateSubscription(result.subscription);
+          result
         return result;
       }));
   }
 
+  updateSubscription(subscription: Subscription): void {
+    localStorage.setItem("subscription", JSON.stringify(subscription))
+  }
+
   logoutUser(): void{
     localStorage.removeItem('token');
+    localStorage.removeItem("subscription");
   }
 
 

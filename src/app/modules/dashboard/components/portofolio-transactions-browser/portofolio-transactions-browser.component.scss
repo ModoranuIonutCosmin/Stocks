@@ -1,29 +1,39 @@
-.mainDataTable{
+.mainDataTable {
     width: 100%;
+
+    span {
+        padding: 5px;
+    }
+}
+
+.mat-cell {
+    padding: 0 8px
 }
 
 
-img{
+img {
     width: 45px;
     height: 45px;
 }
 
-.avatarDescription{
+.avatarDescription {
     font-size: 1em;
     display: flex;
     align-items: center;
     padding: 5px 0;
 
-    div{
+    div {
         margin: 5px;
-        *{
+
+        * {
             margin: 0;
         }
     }
 }
-.userHint{
-  padding-top: 60px;
-  max-width: 600px;
-  text-align: center;
-  margin: 0 auto;
+
+.userHint {
+    padding-top: 60px;
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto;
 }

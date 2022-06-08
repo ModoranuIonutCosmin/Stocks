@@ -24,6 +24,11 @@ const routes: Routes = [
   {
     path: 'news', loadChildren: () => import('./modules/news/news.module')
       .then(m => m.NewsModule)
+  },
+  {
+    path: 'membership', loadChildren: () => import('./modules/subscription/subscription.module')
+      .then(m => m.SubscriptionModule),
+      canActivate: [LoggedGuard]
   }
 ];
 

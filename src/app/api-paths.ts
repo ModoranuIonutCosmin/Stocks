@@ -22,4 +22,7 @@ export enum ApiPaths {
     TransactionsGrouped = `/api/1.0/Transactions/openTransactions`,
     TransactionsParticular = `/api/1.0/Transactions/openTransactionsForTicker/`,
     CloseTransactionPost = `/api/1.0/Transactions/closeTransaction`,
+
+    //Payment
+    StripeCreateCheckoutSession = '/api/1.0/PaymentCheckout/create-checkout-session'
 }

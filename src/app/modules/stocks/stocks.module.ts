@@ -14,6 +14,9 @@ import {ResearchPageComponent} from './pages/research-page/research-page.compone
 import { StockschartComponent } from './components/stockschart/stockschart.component';
 import {NgApexchartsModule} from "ng-apexcharts";
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
+import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
+import { StocksLineGraphComponent } from './components/stocks-line-graph/stocks-line-graph.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { CompanyInfoComponent } from './components/company-info/company-info.com
     ResearchPageComponent,
     StockschartComponent,
     CompanyInfoComponent,
+    StocksLineGraphComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,8 @@ import { CompanyInfoComponent } from './components/company-info/company-info.com
     FormsModule,
     DirectivesModule,
     SharedModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    HighchartsChartModule
   ],
   providers: [StocksDataService, LoggedGuard, UserService, PortofolioService]
 })

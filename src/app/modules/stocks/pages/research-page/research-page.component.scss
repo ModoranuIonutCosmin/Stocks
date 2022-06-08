@@ -1,9 +1,50 @@
-.algorithmSelector{
+mat-tab {
+  width: 100%;
+}
+
+mat-tab-group {
+  height: 100%;
+}
+
+.algorithmSelector {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-mat-tab{
+
+/// content blurat
+::ng-deep mat-tab-body-wrapper{
+  width: 100% !important;
+  height: 100% !important;
+}
+.blurredContent {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative;
+}
+
+.blurredImage,
+.subscriptionAdvice {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+}
+
+.blurredImage {
+  z-index: 1;
+}
+
+.subscriptionAdvice {
+  z-index: 2;
+}
+
+.blurredImage {
+  background: url('../../../../../assets/Images/news1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  filter: blur(10px);
 }

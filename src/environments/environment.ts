@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:5001'
+  baseUrl: 'https://localhost:5001',
+  paymentSuccessURL: "http://localhost:4200/membership/success",
+  paymentFailureURL: "http://localhost:4200/membership/failure",
 };
 
 /*
