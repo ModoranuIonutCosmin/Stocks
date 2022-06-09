@@ -38,7 +38,7 @@ export class StocksDataService {
   }
 
   public gatherCompanyForecastData(ticker: string, page: number = 0,
-                                   count: number = 1000, algorithm: string = 'T_FTO'): Observable<ForecastDataModel> {
+                                   count: number = 10000, algorithm: string = 'T_FTO'): Observable<ForecastDataModel> {
 
     return this.httpClient.get<ForecastDataModel>
     (`${this.baseUrl}${ApiPaths.CompanyForecastDataAll}?ticker=${ticker}&page=${page}&count=${count}&algorithm=${algorithm}`)

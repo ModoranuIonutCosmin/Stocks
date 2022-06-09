@@ -38,7 +38,8 @@ export class ResearchPageComponent implements OnInit {
   ///
   constructor(private route: ActivatedRoute,
               private stocksService: StocksDataService,
-              private subscriptionService: SubscriptionsService) {
+              subscriptionService: SubscriptionsService) {
+      subscriptionService.checkRemoteSubcription()
       this.userSubscription = subscriptionService.userSubscription;
   }
 

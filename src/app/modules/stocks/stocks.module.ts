@@ -15,8 +15,9 @@ import { StockschartComponent } from './components/stockschart/stockschart.compo
 import {NgApexchartsModule} from "ng-apexcharts";
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
-import { StocksLineGraphComponent } from './components/stocks-line-graph/stocks-line-graph.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { StocksPredictionsLineGraphComponent } from './components/stocks-predictions-line-graph/stocks-predictions-line-graph.component';
+import { TradeSuggestComponent } from './components/trade-suggest/trade-suggest.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     ResearchPageComponent,
     StockschartComponent,
     CompanyInfoComponent,
-    StocksLineGraphComponent,
+    StocksPredictionsLineGraphComponent,
+    TradeSuggestComponent
   ],
   imports: [
     CommonModule,

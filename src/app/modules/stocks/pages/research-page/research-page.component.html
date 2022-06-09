@@ -29,10 +29,16 @@
             </div>
           </div>
         </div>
-
       </div>
-      <app-stocks-data-table *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'"
+      <div *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'">
+        <app-stocks-data-table 
         [algorithm]="this.algorithm" [ticker]="ticker"></app-stocks-data-table>
+
+        <app-stocks-predictions-line-graph>
+        [algorithm]="this.algorithm" [ticker]="ticker"></app-stocks-predictions-line-graph>
+
+        
+      </div>
     </ng-template>
 
 
