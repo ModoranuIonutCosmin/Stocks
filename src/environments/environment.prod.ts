@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://stocksresearch.azurewebsites.net',
-  paymentSuccessURL: "http://localhost:4200/membership/success",
-  paymentFailureURL: "http://localhost:4200/membership/failure",
+  baseUrl: 'https://stockswebapi.azurewebsites.net',
+  paymentSuccessURL: "https://brave-water-0275d7603.1.azurestaticapps.net/membership/success",
+  paymentFailureURL: "https://brave-water-0275d7603.1.azurestaticapps.net/membership/failure",
 };
