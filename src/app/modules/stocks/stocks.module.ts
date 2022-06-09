@@ -7,7 +7,7 @@ import {StocksDataService} from '../../core/services/stocks-data.service';
 import {UserService} from '../../core/services/user.service';
 import {LoggedGuard} from 'src/app/core/guard/logged-guard';
 import {PortofolioService} from '../../core/services/portofolio.service';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DirectivesModule} from '../directives/directives.module';
 import {SharedModule} from "../shared/shared.module";
 import {ResearchPageComponent} from './pages/research-page/research-page.component';
@@ -18,6 +18,9 @@ import { SubscriptionsService } from 'src/app/core/services/subscription/subscri
 import { HighchartsChartModule } from 'highcharts-angular';
 import { StocksPredictionsLineGraphComponent } from './components/stocks-predictions-line-graph/stocks-predictions-line-graph.component';
 import { TradeSuggestComponent } from './components/trade-suggest/trade-suggest.component';
+import { TradeSuggestionsSelectorComponent } from './components/trade-suggestions-selector/trade-suggestions-selector.component';
+import { PredictionsAnalysisComponent } from './components/predictions-analysis/predictions-analysis.component';
+import { TradeSuggestionsService } from 'src/app/core/services/trade_suggestions/trade-suggestions.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { TradeSuggestComponent } from './components/trade-suggest/trade-suggest.
     StockschartComponent,
     CompanyInfoComponent,
     StocksPredictionsLineGraphComponent,
-    TradeSuggestComponent
+    TradeSuggestComponent,
+    TradeSuggestionsSelectorComponent,
+    PredictionsAnalysisComponent
   ],
   imports: [
     CommonModule,
@@ -36,9 +41,11 @@ import { TradeSuggestComponent } from './components/trade-suggest/trade-suggest.
     DirectivesModule,
     SharedModule,
     NgApexchartsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [StocksDataService, LoggedGuard, UserService, PortofolioService]
+  providers: [StocksDataService, LoggedGuard, UserService, PortofolioService, TradeSuggestionsService]
 })
 export class StocksModule {
 }

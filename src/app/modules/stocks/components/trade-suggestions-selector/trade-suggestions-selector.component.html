@@ -1,0 +1,20 @@
+<h1>Suggested trades</h1>
+<section class="trades">
+    <form [formGroup]="this.form">
+        <mat-form-field appearance="fill">
+            <mat-label>Trades time interval</mat-label>
+            <mat-select formControlName="interval" [(ngModel)]="this.interval">
+                <mat-option *ngFor="let interval of this.INTERVAL_LIST" [value]="interval">{{interval}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Trades time interval</mat-label>
+            <mat-select formControlName="algorithm" [(ngModel)]="this.algorithm">
+                <mat-option *ngFor="let alg of this.ALGS_LIST" [value]="alg">{{alg}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+    <app-trade-suggest [tradeSuggestion]="trade" *ngFor="let trade of this.tradeSuggestions"></app-trade-suggest>
+</section>

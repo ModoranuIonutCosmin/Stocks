@@ -9,7 +9,7 @@ import * as Highcharts from 'highcharts/highstock';
   styleUrls: ['./stockschart.component.scss'],
 })
 export class StockschartComponent implements OnInit {
-  @Input() ticker: string = 'company';
+  @Input() ticker: string = '';
 
   updateFlag: boolean = false;
   public highcharts: any = Highcharts;

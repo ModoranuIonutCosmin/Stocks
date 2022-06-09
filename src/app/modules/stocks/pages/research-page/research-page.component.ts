@@ -30,16 +30,12 @@ export class ResearchPageComponent implements OnInit {
     }
   }
 
-  ///TAB3
-  ticker: string = '';
-  algorithm: string = 'TS_SSA';
+  ticker: string = "";
   userSubscription: BehaviorSubject<Subscription>;
-
   ///
   constructor(private route: ActivatedRoute,
               private stocksService: StocksDataService,
-              subscriptionService: SubscriptionsService) {
-      subscriptionService.checkRemoteSubcription()
+              private subscriptionService: SubscriptionsService) {
       this.userSubscription = subscriptionService.userSubscription;
   }
 

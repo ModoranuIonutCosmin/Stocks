@@ -24,5 +24,8 @@ export enum ApiPaths {
     CloseTransactionPost = `/api/1.0/Transactions/closeTransaction`,
 
     //Payment
-    StripeCreateCheckoutSession = '/api/1.0/PaymentCheckout/create-checkout-session'
+    StripeCreateCheckoutSession = '/api/1.0/PaymentCheckout/create-checkout-session',
+
+    //Sugestii
+    GetTradeSuggestions = '/api/1.0/SuggestedTrade/suggestions'
 }

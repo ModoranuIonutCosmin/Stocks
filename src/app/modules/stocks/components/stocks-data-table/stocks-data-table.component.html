@@ -1,30 +1,4 @@
-<section class="algorithmSelector">
-  <header>
-    <h1>
-      Forecasted prices by algorithm
-    </h1>
-  </header>
-  <p class="description">Select an algorithm and observe the results of applying that specific algorithm on the historical data of this company.
-    These results are updated every week for figuring out the predicted prices for the upcoming week.
-  </p>
-  <div>
-    <button mat-icon-button color="primary"
-            aria-label="Previous algorithm"
-            (click)="choosePreviousAlgorithm()">
-      <mat-icon>navigate_before</mat-icon>
-    </button>
-    <strong>{{this.algorithm}} </strong>
 
-    <button mat-icon-button color="primary"
-            aria-label="Previous algorithm"
-            (click)="chooseNextAlgorithm()">
-      <mat-icon>navigate_next</mat-icon>
-    </button>
-  </div>
-
-  <p class="mat-hint">{{this.ALGS_NAMES[this.currentAlgorithmIndex]}}</p>
-
-</section>
 
 
 

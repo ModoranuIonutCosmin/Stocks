@@ -7,4 +7,6 @@ export interface PlaceOrderRequestModel {
     stopLossAmount: number,
     takeProfitAmount: number,
     investedAmount: number,
+    scheduledOpen?: Date,
+    scheduledClose?: Date
 }

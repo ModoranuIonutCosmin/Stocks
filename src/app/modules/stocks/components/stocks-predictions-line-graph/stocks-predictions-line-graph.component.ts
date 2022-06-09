@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { StocksDataService } from 'src/app/core/services/stocks-data.service';
 
@@ -9,12 +9,43 @@ import { StocksDataService } from 'src/app/core/services/stocks-data.service';
 })
 export class StocksPredictionsLineGraphComponent implements OnInit {
 
-  @Input() ticker: string = 'company';
-  @Input() algorithm: string = 'TS_SSA';
+
+  _ticker: string = 'INTC';
+  _algorithm: string = 'TS_SSA';
+
+  get ticker() {
+    return this._ticker
+  }
+
+  get algorithm() {
+    return this._algorithm
+  }
+
+  @Input() set ticker(value: string)
+  {
+    this._ticker = value;
+
+    console.log('new ticker ' + value)
+    this.updateFlag = false;
+    this.updateChart();
+  }
+  @Input() set algorithm(value: string) {
+    this._algorithm = value;
+
+    console.log('new alg ' + value)
+
+    this.updateFlag = false;
+    this.updateChart();
+  }
+
+  @Output() algoritmChanged: EventEmitter<string> = new EventEmitter<string>();
 
   updateFlag: boolean = false;
   public highcharts: any = Highcharts;
   public chartOptions: any = {
+    title: {
+      text: 'Predictions for this algorithm'
+    },
     series: [
       {
         type: 'line',
@@ -36,16 +67,21 @@ export class StocksPredictionsLineGraphComponent implements OnInit {
 
   constructor(private stocksService: StocksDataService) {}
   ngOnInit(): void {
-    this.stocksService
-      .gatherCompanyForecastData(this.ticker, 0, 10000, this.algorithm)
-      .subscribe((result) => {
-        var observations = result.predictions.map((obs) => [
-          new Date(obs.date).getTime(),
-          obs.price,
-        ]);
+    this.updateChart();
+  }
 
-        this.chartOptions.series[0].data = observations;
-        this.updateFlag = true;
-      });
+
+  updateChart() {
+    this.stocksService
+    .gatherCompanyForecastData(this.ticker, 0, 10000, this.algorithm)
+    .subscribe((result) => {
+      var observations = result.predictions.map((obs) => [
+        obs.date,
+        obs.price,
+      ]).reverse();
+
+      this.chartOptions.series[0].data = observations;
+      this.updateFlag = true;
+    });
   }
 }

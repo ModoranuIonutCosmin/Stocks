@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {TimestampPrice} from "../../../../shared/models/timestamp-price";
@@ -47,10 +47,6 @@ export class StocksDataTableComponent implements OnInit, AfterViewInit {
   forecastedPrices: TimestampPrice[] = []
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  currentAlgorithmIndex: number = 0;
-  ALGS_LIST: string[] = ['TS_SSA', 'T_FTO', 'T_SDCA', 'T_FFO', 'T_LBFP']
-  ALGS_NAMES: string[] = ['Single spectrum analysis', 'Fast tree tweedie',
-    'Stochastic Dual Coordinate Ascent', 'Fast forest', 'Lbfgs Poisson Regression']
 
 
   constructor(private stocksService: StocksDataService) {
@@ -102,12 +98,6 @@ export class StocksDataTableComponent implements OnInit, AfterViewInit {
   }
 
 
-  chooseNextAlgorithm() {
-    this.currentAlgorithmIndex = (++this.currentAlgorithmIndex) % this.ALGS_LIST.length
-    this.algorithm = this.ALGS_LIST[this.currentAlgorithmIndex]
-  }
-  choosePreviousAlgorithm() {
-    this.currentAlgorithmIndex = (--this.currentAlgorithmIndex + this.ALGS_LIST.length) % this.ALGS_LIST.length
-    this.algorithm = this.ALGS_LIST[this.currentAlgorithmIndex]
-  }
+
+
 }

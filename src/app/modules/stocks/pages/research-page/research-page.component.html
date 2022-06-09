@@ -16,29 +16,7 @@
     </ng-template>
 
     <ng-template matTabContent>
-      <div class="research" *ngIf="((this.userSubscription | async)?.status ?? '') != 'active'">
-
-        <div class="blurredContent">
-          <div class="blurredImage"></div>
-          <div class="subscriptionAdvice">
-            <div>
-              <header>
-                <h1>This page is only available to subscribed users.</h1>
-              </header>
-              <p>Subscribe <a [routerLink]="['/membership/aquire']">here</a>.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'">
-        <app-stocks-data-table 
-        [algorithm]="this.algorithm" [ticker]="ticker"></app-stocks-data-table>
-
-        <app-stocks-predictions-line-graph>
-        [algorithm]="this.algorithm" [ticker]="ticker"></app-stocks-predictions-line-graph>
-
-        
-      </div>
+      <app-predictions-analysis></app-predictions-analysis>
     </ng-template>
 
 

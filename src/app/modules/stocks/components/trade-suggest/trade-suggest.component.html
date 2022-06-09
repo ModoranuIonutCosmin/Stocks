@@ -1,1 +1,26 @@
-<p>trade-suggest works!</p>
+<div class = "suggestion" id="container">
+    <div>
+        <p>{{this.tradeSuggestion.ticker}}</p>
+        <p>{{"\<\<logo companie>>"}}</p>
+    </div>
+
+    <div class = "typeOfTrade">
+        <p>Type of position: {{this.tradeSuggestion.openRequest.isBuy ? 'BUY' : 'SELL'}}</p>
+    </div>
+    <div class="currentPrice">
+        <p><em>Current price </em>{{this.tradeSuggestion.currentPrice}}</p>
+    </div>
+
+    <div class="expectedPrice">
+        <p><em>Expected price </em>{{this.tradeSuggestion.expectedPrice}}</p>
+        <p>At <em>date</em> {{(this.tradeSuggestion.openRequest?.scheduledClose || '') | date: 'short'}}</p>
+    </div>
+
+    <div class="profit">
+        <p>An investition of {{this.tradeSuggestion.openRequest.investedAmount}}</p>
+        <p>could be worth {{getPotentialValue()}}</p>
+    </div>
+
+    <button mat-flat-button color="primary" (click)="openTrade()">Open trade</button>
+</div>
+<hr>
