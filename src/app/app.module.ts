@@ -22,6 +22,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SubscriptionsService } from './core/services/subscription/subscription.service';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { HomeModule } from './modules/home/home.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    HomeModule,
   ],
   exports: [],
   providers: [{

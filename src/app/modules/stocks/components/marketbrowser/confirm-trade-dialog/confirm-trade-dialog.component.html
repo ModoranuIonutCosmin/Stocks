@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Schedule a trade</h1>
+<div mat-dialog-content>
+  <p>You're about to schedule a trade at {{this.data.suggestion.openRequest.scheduledOpen | date: 'short'}},
+    with auto-close for {{this.data.suggestion.openRequest.scheduledClose | date: 'short'}}. You can adjust the invested sum below.</p>
+  <form [formGroup]="this.confirmForm">
+    <app-numbers-only-spinbox
+    [value]="data.suggestion.openRequest.investedAmount"
+    (valueChange)="this.data.suggestion.openRequest.investedAmount = $event"
+    [minValue]=0
+    [maxValue]=100000000000
+    [step]=1000
+    [parentForm]="this.confirmForm"
+    controlName="investedAmount"
+  ></app-numbers-only-spinbox>
+</form>
+<p>Do you want to make this trade happen?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

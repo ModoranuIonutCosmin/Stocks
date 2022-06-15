@@ -8,10 +8,12 @@ import { SubscriptionDetails } from 'src/app/modules/subscription/models/subscri
 import { Subscription } from 'src/app/modules/dashboard/models/subscription';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProfilePrivateData } from 'src/app/modules/dashboard/models/profile-private-data';
+import { CreateCustomerPortalSessionResponse } from 'src/app/modules/subscription/models/create-customer-portal-session-response';
+import { Router } from '@angular/router';
 
 declare const Stripe: any;
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SubscriptionsService {
   public userSubscription: BehaviorSubject<Subscription> =
     new BehaviorSubject<Subscription>({
@@ -22,7 +24,8 @@ export class SubscriptionsService {
       status: 'default',
       type: 9999,
     });
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+    private router: Router) {
     this.loadSubscription();
   }
 
@@ -36,20 +39,20 @@ export class SubscriptionsService {
   }
 
   loadSubscription(): void {
-    var subscription = localStorage.getItem('subscription')
+    var subscription = localStorage.getItem('subscription');
 
     if (subscription == null) {
       this.checkRemoteSubcription();
 
       return;
     }
-    
-    this.userSubscription.next(JSON.parse(subscription))
+
+    this.userSubscription.next(JSON.parse(subscription));
   }
 
   updateSubscription(subscription: Subscription): void {
     localStorage.setItem('subscription', JSON.stringify(subscription));
-    this.userSubscription.next(subscription)
+    this.userSubscription.next(subscription);
   }
 
   public requestSubscriptionTier(priceId: string): void {
@@ -75,10 +78,34 @@ export class SubscriptionsService {
     stripe.redirectToCheckout({ sessionId });
   }
 
+  public redirectToSubscriptionManagement(): void {
+    this.httpClient.post<CreateCustomerPortalSessionResponse>(
+      environment.baseUrl + ApiPaths.StripeCreateCustomerPortalSession,
+      {}
+    ).subscribe((session) => {
+      console.log(session.url)
+      window.location.href = session.url
+    })
+  }
+
   checkRemoteSubcription(): void {
-    this.httpClient.get<ProfilePrivateData>(`${environment.baseUrl}${ApiPaths.ProfileDataGet}`)
-            .subscribe((profile) => {
-              this.updateSubscription(profile.subscription);
-            })
+    this.httpClient
+      .get<ProfilePrivateData>(
+        `${environment.baseUrl}${ApiPaths.ProfileDataGet}`
+      )
+      .subscribe((profile) => {
+        this.updateSubscription(profile.subscription);
+      });
+  }
+
+  noSubscription(): any {
+    return {
+      customerId: '',
+      id: '',
+      periodEnd: new Date(),
+      periodStart: new Date(),
+      status: 'default',
+      type: 9999,
+    }
   }
 }

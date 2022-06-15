@@ -4,8 +4,9 @@ import {MatPaginator} from "@angular/material/paginator";
 import {TimestampPrice} from "../../../../shared/models/timestamp-price";
 import {StocksDataService} from "../../../../core/services/stocks-data.service";
 import {ForecastDataModel} from "../../models/forecast-data-model";
-import {startWith, tap} from "rxjs/operators";
-import {timer} from "rxjs";
+import {debounceTime, distinctUntilChanged, finalize, map, startWith, switchMap, tap} from "rxjs/operators";
+import {Subject, timer, flatMap, BehaviorSubject, merge} from "rxjs";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-stocks-data-table',
@@ -13,88 +14,65 @@ import {timer} from "rxjs";
   styleUrls: ['./stocks-data-table.component.scss']
 })
 export class StocksDataTableComponent implements OnInit, AfterViewInit {
-  private _ticker: string = ''
-  private _algorithm: string = ''
+  @Input() ticker!: string;
 
-  get ticker() {
-    return this._ticker;
-  }
-
-  get algorithm() {
-    return this._algorithm;
-  }
 
   isLoading = true;
   displayedColumns: string[] = ['position', 'date', 'price'];
   dataSource = new MatTableDataSource<TimestampPrice>();
+  totalCount = 0
 
-  currentPage = 0;
-  itemsPerPage = 5;
-  totalItemsCount: number = 0;
-
-  @Input() set ticker(value) {
-    this._ticker = value;
-    this.isLoading = true;
-    this.loadPage();
-  }
-  @Input() set algorithm(value) {
-    this._algorithm = value;
-    console.log('algorithm changed');
-    this.isLoading = true;
-    this.loadPage();
-  }
+  @Input() algorithm: BehaviorSubject<string> = new BehaviorSubject<string>("TS_SSA");
 
   forecastedPrices: TimestampPrice[] = []
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  constructor(private stocksService: StocksDataService,
+    private route: ActivatedRoute) {
+    this.ticker = this.route.snapshot.paramMap.get('ticker') || '';
 
-
-  constructor(private stocksService: StocksDataService) {
-
+    console.log(`From table ${this.ticker}`)
   }
 
   ngOnInit() {
 
   }
 
-  appendResultsToSource(result: ForecastDataModel): void {
-    this.forecastedPrices = result.predictions
-                    .map((pred, index) : TimestampPrice => {
-                      return {
-                        date: pred.date,
-                        price: pred.price,
-                        position: this.currentPage * this.itemsPerPage + index + 1
-                      }});
-    this.dataSource = new MatTableDataSource(this.forecastedPrices)
-  }
-
-  loadPage(): void {
-      if (this.ticker == '') {
-        return;
-      }
-      this.isLoading = true;
-      this.stocksService.gatherCompanyForecastData(this.ticker,
-        this.currentPage, this.itemsPerPage, this.algorithm)
-        .subscribe( result => {
-          this.appendResultsToSource(result);
-          this.totalItemsCount = result.totalCount
-          this.isLoading = false;
-        });
-  }
-
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.loadPage()
 
-    this.paginator.page
-      .pipe(startWith(null),
+
+    merge(this.paginator.page, 
+      this.algorithm.pipe(debounceTime(500), distinctUntilChanged())
+      )
+      .pipe(startWith({}),
         tap(() => {
-          this.isLoading = true;
-          this.currentPage = this.paginator.pageIndex;
-          this.itemsPerPage = this.paginator.pageSize;
-          this.loadPage()
+          this.isLoading = true
+        }),
+        switchMap((alg) => {
+
+        return this.stocksService.gatherCompanyForecastData(this.ticker, this.paginator.pageIndex,
+          this.paginator.pageSize, this.algorithm.value);
+        }),
+        map(result => {
+          this.totalCount = result.totalCount
+
+          this.forecastedPrices = result.predictions.map((pred, index) => {
+  
+            return <TimestampPrice>{
+              date: pred.date,
+              position: index + this.paginator.pageSize * this.paginator.pageIndex,
+              price: pred.price
+            }
+          })
+
+          return this.forecastedPrices
         }))
-      .subscribe();
+      .subscribe((res) => {
+        this.dataSource.data = res
+        this.isLoading = false;
+
+        console.log(this.paginator.length)
+      });
   }
 
 

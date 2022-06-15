@@ -4,8 +4,8 @@ import { LoggedGuard } from './core/guard/logged-guard';
 
 const routes: Routes = [
   {
-    path: '', loadChildren: () => import('./modules/news/news.module')
-      .then(m => m.NewsModule)
+    path: '', loadChildren: () => import('./modules/home/home.module')
+      .then(m => m.HomeModule)
   },
   {
     path: 'stocks', loadChildren: () => import('./modules/stocks/stocks.module')

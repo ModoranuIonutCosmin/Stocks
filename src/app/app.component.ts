@@ -37,7 +37,7 @@ export class AppComponent {
               private portofolioService: PortofolioService,
               public userService: UserService,
               private _snackBar: MatSnackBar,
-              private subscriptionService: SubscriptionsService,
+              public subscriptionService: SubscriptionsService,
               private spinnerService: SpinnerService,
               private router: Router) {
     this.amountRefill = 0;

@@ -18,7 +18,7 @@
 
     <div class="profit">
         <p>An investition of {{this.tradeSuggestion.openRequest.investedAmount}}</p>
-        <p>could be worth {{getPotentialValue()}}</p>
+        <p>could be worth {{getPotentialValue() | number: '1.2-2'}}</p>
     </div>
 
     <button mat-flat-button color="primary" (click)="openTrade()">Open trade</button>

@@ -13,6 +13,7 @@ import { LoginModel } from '../../modules/auth/models/LoginModel';
 import { RegisterRequestModel } from '../../modules/auth/models/register-request-model copy';
 import {ProfilePrivateData} from "../../modules/dashboard/models/profile-private-data";
 import { Subscription } from 'src/app/modules/dashboard/models/subscription';
+import { SubscriptionsService } from './subscription/subscription.service';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -21,6 +22,7 @@ export class UserService {
   currentUser!: LoginResponseModel;
 
   constructor(private httpClient: HttpClient,
+    private subscriptionService: SubscriptionsService,
    private router: Router) {
      this.currentToken = '';
      if(this.isAuthenticated()){
@@ -67,6 +69,7 @@ export class UserService {
   logoutUser(): void{
     localStorage.removeItem('token');
     localStorage.removeItem("subscription");
+    this.subscriptionService.userSubscription.next(this.subscriptionService.noSubscription())
   }
 
 

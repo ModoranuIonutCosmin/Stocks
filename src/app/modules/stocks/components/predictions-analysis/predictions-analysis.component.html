@@ -1,60 +1,74 @@
-<div class="research" >
+<div class="research">
+  <div class="wrapper">
 
     <div class="blurredContent" *ngIf="((this.userSubscription | async)?.status ?? '') != 'active'">
-        <div class="blurredImage"></div>
-        <div class="subscriptionAdvice">
-            <div>
-                <header>
-                    <h1>This page is only available to subscribed users.</h1>
-                </header>
-                <p>Subscribe <a [routerLink]="['/membership/aquire']">here</a>.</p>
-            </div>
+      <div class="blurredImage"></div>
+      <div class="subscriptionAdvice">
+        <div>
+          <header>
+            <h1>This page is only available to subscribed users.</h1>
+          </header>
+          <p>Subscribe <a [routerLink]="['/membership/aquire']">here</a>.</p>
         </div>
+      </div>
     </div>
-</div>
-<div *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'">
+    <div *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'" class="pageContent">
 
 
-    <section class="algorithmSelector">
+      <section class="algorithmSelector">
         <header>
-          <h1>
+          <h1 class="mat-headline">
             Forecasted prices by algorithm
           </h1>
         </header>
-        <p class="description">Select an algorithm and observe the results of applying that specific algorithm on the historical data of this company.
+        <p class="description mat-body-1" >Select an algorithm and observe the results of applying that specific algorithm on the
+          historical data of this company.</p>
+        <p class="description mat-body-1">
           These results are updated every week for figuring out the predicted prices for the upcoming week.
         </p>
 
-        
+
         <div>
-          <button mat-icon-button color="primary"
-                  aria-label="Previous algorithm"
-                  (click)="choosePreviousAlgorithm()">
+          <button mat-icon-button color="primary" aria-label="Previous algorithm" (click)="choosePreviousAlgorithm()">
             <mat-icon>navigate_before</mat-icon>
           </button>
-          <strong>{{this.algorithm}} </strong>
-      
-          <button mat-icon-button color="primary"
-                  aria-label="Previous algorithm"
-                  (click)="chooseNextAlgorithm()">
+          <strong>{{this.algorithm | async}} </strong>
+
+          <button mat-icon-button color="primary" aria-label="Previous algorithm" (click)="chooseNextAlgorithm()">
             <mat-icon>navigate_next</mat-icon>
           </button>
         </div>
-      
+
         <p class="mat-hint">{{this.ALGS_NAMES[this.currentAlgorithmIndex]}}</p>
-      
+
       </section>
 
-    <app-stocks-data-table [algorithm]="this.algorithm" [ticker]="ticker" 
-    ></app-stocks-data-table>
 
-    <!-- <app-stocks-predictions-line-graph>
-        [algorithm]="this.algorithm" [ticker]="ticker"
-        ></app-stocks-predictions-line-graph> -->
-    
-    <app-trade-suggestions-selector
-        [algorithm]="this.algorithm" [ticker]="ticker"
-    
-    ></app-trade-suggestions-selector>
+      <div class="informationalPanel">
+
+        <div class="viewType__switch">
+          <mat-button-toggle-group name="viewType" aria-label="View" value="graph" (change)="this.viewChanged($event)">
+            <mat-button-toggle value="graph">
+              <mat-icon>show_chart</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="table">
+              <mat-icon>table_rows</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        <app-stocks-data-table *ngIf="this.tableVisible" [algorithm]="this.algorithm" [ticker]="ticker">
+        </app-stocks-data-table>
+
+        <app-stocks-predictions-line-graph *ngIf="this.graphVisible" [algorithm]="(this.algorithm | async) || ''"
+          [ticker]="this.ticker">
+        </app-stocks-predictions-line-graph>
+      </div>
+
+
+      <app-trade-suggestions-selector>
+      </app-trade-suggestions-selector>
+
+    </div>
+  </div>
 
 </div>

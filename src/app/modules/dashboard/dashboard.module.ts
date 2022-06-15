@@ -9,13 +9,15 @@ import { UserService } from '../../core/services/user.service';
 import { PortofolioDetailedTransactionsBrowserComponent } from './components/portofolio-detailed-transactions-browser/portofolio-detailed-transactions-browser.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
 
 
 @NgModule({
   declarations: [
     PortofolioTransactionsBrowserComponent,
     PortofolioDetailedTransactionsBrowserComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    TransactionsTableComponent
   ],
   imports: [
     CommonModule,

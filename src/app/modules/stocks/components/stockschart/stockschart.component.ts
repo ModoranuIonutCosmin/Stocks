@@ -37,6 +37,7 @@ export class StockschartComponent implements OnInit {
         ]);
 
         this.chartOptions.series![0]!.data = ohlcValues;
+        this.chartOptions.series![0]!.name = 'Price'
         this.updateFlag = true;
         console.log(ohlcValues);
       });

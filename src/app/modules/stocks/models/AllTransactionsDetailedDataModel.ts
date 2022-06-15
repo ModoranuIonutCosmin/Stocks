@@ -5,5 +5,7 @@ export interface AllTransactionsDetailedDataModel {
     name: string,
     description: string,
     urlLogo: string,
-    transactions: Array<TransactionFullInfo>
+    openTransactions: Array<TransactionFullInfo>,
+    scheduledTransactions: Array<TransactionFullInfo>,
+    closedTransactions: Array<TransactionFullInfo>,
 }

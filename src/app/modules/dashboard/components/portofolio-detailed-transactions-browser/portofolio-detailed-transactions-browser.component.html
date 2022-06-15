@@ -1,118 +1,48 @@
-<main *ngIf="!(isLoading$ | async)">
-  <div class="avatarDescription" >
-    <img src="{{transactionsList.urlLogo}}"/>
-    <div>
-      <h1>{{transactionsList.ticker}}</h1>
-      <p>{{transactionsList.name}}</p>
+<main *ngIf="!(isLoading$ | async)" class="transactions">
+
+
+  <header class="header">
+    <h1>Your transactions for</h1>
+    <div class="avatarDescription">
+      <img src="{{transactionsList.urlLogo}}" />
+      <div>
+        <h1>{{transactionsList.ticker}}</h1>
+        <p>{{transactionsList.name}}</p>
+      </div>
     </div>
-  </div>
+  </header>
 
 
-  <table mat-table [dataSource]="this.transactionsList.transactions" class="mat-elevation-z8 mainDataTable">
-    <ng-container matColumnDef="Market">
-      <th mat-header-cell *matHeaderCellDef> Market</th>
-      <td mat-cell *matCellDef="let element">
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Open" class="tabContent">
 
-        <div class="avatarDescription">
-          <div>
-            <h1>{{element.ticker}}</h1>
-            <p>{{element.name}}</p>
-            <p>{{element.date | date: (this.isMobile ? 'short' : 'medium')}}</p>
-            <p>{{element.isCFD ? 'CFD' : 'NON CFD'}}</p>
-            <p>{{element.isBuy ? 'BUY' : 'SELL'}}</p>
-          </div>
-        </div>
-      </td>
-    </ng-container>
+      <app-transactions-table [displayedColumns]="this.displayedColumns"
+        [transactionsList]="this.transactionsList.openTransactions"
+        (closeTransactionEmitter)="this.closeTransaction($event)"></app-transactions-table>
 
-    <ng-container matColumnDef="Units">
-      <th mat-header-cell *matHeaderCellDef> Units</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.unitsPurchased}}
-      </td>
-    </ng-container>
+      <div *ngIf="this.transactionsList.openTransactions.length <= 0" class="noTransactions">
+        <p>There are no open transactions!</p>
+      </div>
 
+    </mat-tab>
+    <mat-tab label="Scheduled" class="tabContent">
 
-    <ng-container matColumnDef="Initial price">
-      <th mat-header-cell *matHeaderCellDef class="sellTableHeader"> Initial price</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.initialPrice | number : '1.2-2'}}
-      </td>
-    </ng-container>
+      <app-transactions-table [displayedColumns]="this.displayedColumns"
+        [transactionsList]="this.transactionsList.scheduledTransactions"
+        (closeTransactionEmitter)="this.closeTransaction($event)"></app-transactions-table>
+      <div *ngIf="this.transactionsList.scheduledTransactions.length <= 0" class="noTransactions">
+        <p>There are no scheduled transactions!</p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Closed" class="tabContent">
 
-
-    <ng-container matColumnDef="Current price">
-      <th mat-header-cell *matHeaderCellDef class="sellTableHeader"> Current price</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.currentPrice | number : '1.2-2'}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Invested amount">
-      <th mat-header-cell *matHeaderCellDef class="sellTableHeader"> Invested amount</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.investedAmount | number : '1.2-2'}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Total P/L">
-      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Total P/L</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.profitOrLoss | number : '1.2-2'}}
-      </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="Total P/L%">
-      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Total P/L%</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.profitOrLossPercentage | number : '1.2-2'}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Stop loss">
-      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Stop loss</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.stopLossAmount | number : '1.2-2'}}
-      </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="Take profit">
-      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Take profit</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.takeProfitAmount | number : '1.2-2'}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Leverage">
-      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Leverage</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.leverage}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Value">
-      <th mat-header-cell *matHeaderCellDef class="buyTableHeader"> Value</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.value | number : '1.2-2'}}
-      </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="Options">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element" width="1px">
-
-        <button mat-icon-button (click)="closeTransaction(element)">
-          <mat-icon>close</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="this.columnDefinitions"></tr>
-    <tr mat-row *matRowDef="let row; columns: this.columnDefinitions;"></tr>
-  </table>
+      <app-transactions-table [displayedColumns]="this.displayedColumns"
+        [transactionsList]="this.transactionsList.closedTransactions"
+        (closeTransactionEmitter)="this.closeTransaction($event)"></app-transactions-table>
+      <div *ngIf="this.transactionsList.closedTransactions.length <= 0" class="noTransactions">
+        <p>There are no closed transactions!</p>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 
 </main>
-

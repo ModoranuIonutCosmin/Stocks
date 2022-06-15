@@ -4,5 +4,6 @@ export interface TradeSuggestion {
     ticker: string,
     currentPrice: number,
     expectedPrice: number,
-    openRequest: PlaceOrderRequestModel
+    openRequest: PlaceOrderRequestModel,
+    disabled: boolean
 }

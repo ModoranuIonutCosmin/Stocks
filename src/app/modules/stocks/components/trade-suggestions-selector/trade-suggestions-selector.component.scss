@@ -1,3 +1,32 @@
-.trades {
-    background-color: #eeeeee;
+.suggestions {
+    background-color: #fff;
+    padding: 20px 0;
 }
+
+.trades{
+    text-align: center;
+}
+
+
+.filters{
+    mat-form-field {
+        margin: 10px;
+    }
+}
+
+#tradesTable{
+    width: 100%;
+    display: table;
+    min-width: 700px;
+}
+
+
+.mat-table {
+    overflow-x: scroll;
+}
+
+.mat-header-row,
+.mat-row {
+    min-width: 500px;
+}
+

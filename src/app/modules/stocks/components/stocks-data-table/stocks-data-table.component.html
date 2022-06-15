@@ -2,7 +2,7 @@
 
 
 
-<div class="mat-elevation-z8 forecastedData">
+<div class="forecastedData">
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   <table mat-table [dataSource]="dataSource">
 
@@ -26,10 +26,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [length]="this?.totalItemsCount"
+  <mat-paginator 
                  [pageSizeOptions]="[5, 7, 10]"
-                 [pageIndex]="this.currentPage"
+                 [length]="this.totalCount"
                  showFirstLastButtons
-                 aria-label="Select page of periodic elements">
+                 aria-label="Select page">
   </mat-paginator>
 </div>

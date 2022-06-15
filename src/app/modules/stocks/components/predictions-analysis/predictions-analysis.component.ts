@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 import { Subscription } from 'src/app/modules/dashboard/models/subscription';
 
@@ -9,13 +9,15 @@ import { Subscription } from 'src/app/modules/dashboard/models/subscription';
   templateUrl: './predictions-analysis.component.html',
   styleUrls: ['./predictions-analysis.component.scss'],
 })
-export class PredictionsAnalysisComponent implements OnInit {
+export class PredictionsAnalysisComponent {
   ticker: string = '';
-  algorithm: string = "TS_SSA";
+
+  graphVisible: boolean = true
+  tableVisible: boolean = false
+
+  algorithm: BehaviorSubject<string> = new BehaviorSubject<string>("TS_SSA");
 
   userSubscription: BehaviorSubject<Subscription>;
-
-  graphVisible = true;
 
 
   currentAlgorithmIndex: number = 0;
@@ -30,16 +32,26 @@ export class PredictionsAnalysisComponent implements OnInit {
     this.userSubscription = this.subscriptionService.userSubscription;
     subscriptionService.checkRemoteSubcription()
     this.ticker = this.route.snapshot.paramMap.get('ticker') || '';
+
+    console.log(this.ticker)
   }
 
   chooseNextAlgorithm() {
     this.currentAlgorithmIndex = (++this.currentAlgorithmIndex) % this.ALGS_LIST.length
-    this.algorithm = this.ALGS_LIST[this.currentAlgorithmIndex]
+    this.algorithm.next(this.ALGS_LIST[this.currentAlgorithmIndex])
   }
   choosePreviousAlgorithm() {
     this.currentAlgorithmIndex = (--this.currentAlgorithmIndex + this.ALGS_LIST.length) % this.ALGS_LIST.length
-    this.algorithm = this.ALGS_LIST[this.currentAlgorithmIndex]
+    this.algorithm.next(this.ALGS_LIST[this.currentAlgorithmIndex])
   }
 
-  ngOnInit(): void {}
+  viewChanged(event: any) {
+    if (event.value == 'table') {
+      this.tableVisible = true
+      this.graphVisible = false
+    } else {
+      this.tableVisible = false
+      this.graphVisible = true
+    }
+  }
 }

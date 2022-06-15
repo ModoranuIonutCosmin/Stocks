@@ -13,5 +13,7 @@ export interface TransactionFullInfo {
     date: Date,
     isCfd: boolean,
     profitOrLoss: number,
-    profitOrLossPercentage: number
+    profitOrLossPercentage: number,
+    scheduledAutoOpen: Date,
+    scheduledAutoClose: Date
 }

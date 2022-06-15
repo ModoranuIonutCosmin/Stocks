@@ -1,17 +1,109 @@
 <main>
     <header>
-        <h1>Subscription tiers</h1>
+        <h1 class="mat-headline">Subscription tiers</h1>
     </header>
 
-    <div class="tier">
-        <div class="description">
-            <p><span>2€</span> monthly</p>
-            <p>ML - driven predictions</p>
-            <p>Trades suggestions</p>
-        </div>
-    
-        <button type="button"
-            (click)="this.onCheckoutPressed()">Checkout</button>
+    <div class="tiers">
+
+        <mat-card class="tier">
+
+            <h1 class="tier__title">Free Tier</h1>
+
+            <img 
+            class = "logo"
+            src="../../../../../assets/Images/Logo.png">
+            <div class="tier__description">
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="Up-to-date historical data"
+                    class="tier__available"
+                    >check</mat-icon>
+                    <p>Up-to-date historical data</p>
+                </div>
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="Trade simulator"
+                    class="tier__available"
+                    >check</mat-icon>
+                    <p>Trade simulator</p>
+                </div>
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="ML - driven predictions"
+                    class="tier__notAvailable"
+                    >close</mat-icon>
+                    <p>Machine Learning driven predictions</p>
+                </div>
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="Trades suggestions"
+                    class="tier__notAvailable"
+                    >close</mat-icon>
+                    <p>Trades suggestions</p>
+
+                </div>
+            </div>
+            
+            <p class="tier__status">current tier</p>
+
+        </mat-card>
+
+        <mat-card class="tier">
+
+            <h1 class="tier__title">PRO Tier</h1>
+
+            <img 
+            class = "logo"
+            src="../../../../../assets/Images/Logo.png">
+            <div class="tier__description">
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="Up-to-date historical data"
+                    class="tier__available"
+                    >check</mat-icon>
+                    <p>Up-to-date historical data</p>
+                </div>
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="Trade simulator"
+                    class="tier__available"
+                    >check</mat-icon>
+                    <p>Trade simulator</p>
+                </div>
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="ML - driven predictions"
+                    class="tier__available"
+                    >check</mat-icon>
+                    <p>Machine Learning driven predictions</p>
+                </div>
+                <div class="tier__infoEntry">
+                    <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="Trades suggestions"
+                    class="tier__available"
+                    >check</mat-icon>
+                    <p>Trades suggestions</p>
+
+                </div>
+            </div>
+            <div class="tier__price">
+                <p><strong class="tier__priceValue">2€</strong> / month</p>
+                <p>cancel anytime</p>
+            </div>
+
+
+            <button type="button"
+            mat-flat-button color="primary"
+             (click)="this.onCheckoutPressed()">Checkout</button>
+        </mat-card>
     </div>
-    
+
 </main>

@@ -1,0 +1,27 @@
+main {
+    height: calc(100% - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.panel {
+    background-color: #fff;
+    max-width: 300px;
+    text-align: center;
+    padding: 40px;
+    border: 1px solid #efefef;
+    border-radius: 15px;
+}
+
+.successImage {
+    width: 200px;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}

@@ -26,10 +26,10 @@ export class TradeSuggestComponent implements OnInit {
     this.portofolioService
       .PlaceTransactionOrder(this.tradeSuggestion.openRequest)
       .subscribe((res) => {
-        this.snackBar.open('Trade scheduled for opening!', 'OK', {duration: 2000})
+        this.snackBar.open('Trade scheduled for opening!', 'OK', {duration: 6000})
       },
       (err) => {
-        this.snackBar.open('Failed to place trade!', 'OK', {duration: 2000})
+        this.snackBar.open('Failed to place trade!', 'OK', {duration: 6000})
       })
   }
 

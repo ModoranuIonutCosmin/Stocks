@@ -25,6 +25,7 @@ export enum ApiPaths {
 
     //Payment
     StripeCreateCheckoutSession = '/api/1.0/PaymentCheckout/create-checkout-session',
+    StripeCreateCustomerPortalSession = '/api/1.0/StripePortalApi/create-portal-session',
 
     //Sugestii
     GetTradeSuggestions = '/api/1.0/SuggestedTrade/suggestions'

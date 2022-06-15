@@ -1,0 +1,73 @@
+
+main header h1 {
+    text-align: center;
+    font-size: 2em;
+    padding: 30px 0;
+}
+
+.tiers {
+    display: flex;
+    justify-content: center;
+}
+
+
+.tier {
+
+    .logo {
+        max-width: 150px;
+        margin: 20px 0;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 1.1em;
+    padding: 20px;
+    margin: 0 20px;
+    border-radius: 15px
+}
+
+.tier__title {
+    text-align: center;
+}
+
+.tier__description {
+    margin-bottom: 30px;
+}
+
+.tier__infoEntry {
+    display: flex;
+    mat-icon {
+        margin: 0 10px;
+    }
+}
+
+.tier__priceValue {
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.tier__available {
+    color: purple;
+}
+
+.tier__notAvailable {
+    color: red;
+}
+
+.tier__status {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+@media only screen  and (max-width: 500px) {
+    .tiers {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .tier {
+        margin: 20px 0;
+    }
+}

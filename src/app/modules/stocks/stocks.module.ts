@@ -21,6 +21,7 @@ import { TradeSuggestComponent } from './components/trade-suggest/trade-suggest.
 import { TradeSuggestionsSelectorComponent } from './components/trade-suggestions-selector/trade-suggestions-selector.component';
 import { PredictionsAnalysisComponent } from './components/predictions-analysis/predictions-analysis.component';
 import { TradeSuggestionsService } from 'src/app/core/services/trade_suggestions/trade-suggestions.service';
+import { ConfirmTradeDialogComponent } from './components/marketbrowser/confirm-trade-dialog/confirm-trade-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TradeSuggestionsService } from 'src/app/core/services/trade_suggestions
     StocksPredictionsLineGraphComponent,
     TradeSuggestComponent,
     TradeSuggestionsSelectorComponent,
-    PredictionsAnalysisComponent
+    PredictionsAnalysisComponent,
+    ConfirmTradeDialogComponent
   ],
   imports: [
     CommonModule,
