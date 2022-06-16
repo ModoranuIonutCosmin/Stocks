@@ -31,11 +31,11 @@
     </div>
 
     <div class="bottomPanel">
-        <h2>Register today to get a handle on investing.</h2>
+        <h2>Register today to navigate up to date stocks research data.</h2>
 
         <div class="actions">
-            <button mat-flat-button color="primary">Register</button>
-            <button mat-flat-button color="primary">News</button>
+            <button mat-flat-button color="primary" [routerLink]="['/auth/login']">Log in</button>
+            <button mat-flat-button color="primary" [routerLink]="['/news']">News</button>
         </div>
     </div>
 
