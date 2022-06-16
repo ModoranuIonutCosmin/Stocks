@@ -3,25 +3,12 @@
 
 .research {
   height: calc(100vh - 100px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .wrapper {
-    height: 100%;
-  }
 }
 
 
 //blurred vision
 
-.blurred__header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+
 .blurredContent {
   width: 300px;
   text-align: center;
@@ -29,7 +16,20 @@
   border-radius: 15px;
   background-color: #fff;
   border: 1px solid #efefef;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
+
+.blurred__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .blurred__icon {
   width: 150px;
   height: 150px;

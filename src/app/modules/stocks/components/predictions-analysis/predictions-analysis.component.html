@@ -1,30 +1,27 @@
 <div class="research">
 
-    <div class="blurredContent" *ngIf="((this.userSubscription | async)?.status ?? '') != 'active'">
-      <div class="subscriptionAdvice">
-        <div>
-          <header class="blurred__header">
+  <div class="blurredContent" *ngIf="((this.userSubscription | async)?.status ?? '') != 'active'">
+    <div class="subscriptionAdvice">
+      <div>
+        <header class="blurred__header">
 
-            <div class="blurred__icon">
-              <mat-icon>lock</mat-icon>
-            </div>
-            
-            <h1>This page is only available to subscribed users.</h1>
-          </header>
+          <div class="blurred__icon">
+            <mat-icon>lock</mat-icon>
+          </div>
 
-
-
-
-          <button type="button" 
-          mat-flat-button
-          color ="primary"
-          [routerLink]="['/membership/aquire']">Aquire subscription</button>
-        </div>
+          <h1>This page is only available to subscribed users.</h1>
+        </header>
+        <button type="button" mat-flat-button color="primary" [routerLink]="['/membership/aquire']">Aquire
+          subscription</button>
       </div>
     </div>
+  </div>
+
+  <div class="wrapper">
+
+
     <div *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'" class="pageContent">
 
-      <div class="wrapper">
 
       <section class="algorithmSelector">
         <header>
@@ -32,7 +29,8 @@
             Forecasted prices by algorithm
           </h1>
         </header>
-        <p class="description mat-body-1" >Select an algorithm and observe the results of applying that specific algorithm on the
+        <p class="description mat-body-1">Select an algorithm and observe the results of applying that specific
+          algorithm on the
           historical data of this company.</p>
         <p class="description mat-body-1">
           These results are updated every week for figuring out the predicted prices for the upcoming week.

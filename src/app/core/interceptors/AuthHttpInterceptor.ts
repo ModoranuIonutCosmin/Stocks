@@ -12,7 +12,7 @@ import { catchError, map } from "rxjs/operators";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import { SubscriptionsService } from "../services/subscription/subscription.service";
-
+  
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private authenticationService: UserService,

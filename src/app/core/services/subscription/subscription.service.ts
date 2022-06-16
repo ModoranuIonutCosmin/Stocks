@@ -9,7 +9,6 @@ import { Subscription } from 'src/app/modules/dashboard/models/subscription';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProfilePrivateData } from 'src/app/modules/dashboard/models/profile-private-data';
 import { CreateCustomerPortalSessionResponse } from 'src/app/modules/subscription/models/create-customer-portal-session-response';
-import { Router } from '@angular/router';
 
 declare const Stripe: any;
 
@@ -24,8 +23,9 @@ export class SubscriptionsService {
       status: 'default',
       type: 9999,
     });
-  constructor(private httpClient: HttpClient,
-    private router: Router) {
+
+
+  constructor(private httpClient: HttpClient) {
     this.loadSubscription();
   }
 
