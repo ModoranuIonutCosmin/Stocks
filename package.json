@@ -22,6 +22,7 @@
     "@angular/router": "~13.2.5",
     "@angular/service-worker": "~13.2.5",
     "apexcharts": "^3.33.2",
+    "convert-array-to-csv": "^2.0.0",
     "guid-typescript": "^1.0.9",
     "highcharts": "^10.1.0",
     "highcharts-angular": "^3.0.0",

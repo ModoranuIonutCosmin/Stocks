@@ -36,8 +36,8 @@ export class TransactionsTableComponent implements OnInit {
 
 
   dateIsNotNull(date: Date) {
-
-    return date > new Date(2000, 1, 1)
+    console.log(date)
+    return new Date(date) > new Date(2000, 1, 1)
   }
 
   ngOnInit(): void {

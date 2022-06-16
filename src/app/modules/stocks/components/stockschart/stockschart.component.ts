@@ -42,4 +42,7 @@ export class StockschartComponent implements OnInit {
         console.log(ohlcValues);
       });
   }
+
 }
+
+

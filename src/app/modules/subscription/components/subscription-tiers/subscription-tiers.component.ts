@@ -22,6 +22,8 @@ export class SubscriptionTiersComponent implements OnInit {
   }
 
   onCheckoutPressed () {
+
+    console.log('pressed');
     this.subscriptionsService
         .requestSubscriptionTier(this.subcriptionInfo.priceId)
   }

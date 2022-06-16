@@ -1,19 +1,30 @@
 <div class="research">
-  <div class="wrapper">
 
     <div class="blurredContent" *ngIf="((this.userSubscription | async)?.status ?? '') != 'active'">
-      <div class="blurredImage"></div>
       <div class="subscriptionAdvice">
         <div>
-          <header>
+          <header class="blurred__header">
+
+            <div class="blurred__icon">
+              <mat-icon>lock</mat-icon>
+            </div>
+            
             <h1>This page is only available to subscribed users.</h1>
           </header>
-          <p>Subscribe <a [routerLink]="['/membership/aquire']">here</a>.</p>
+
+
+
+
+          <button type="button" 
+          mat-flat-button
+          color ="primary"
+          [routerLink]="['/membership/aquire']">Aquire subscription</button>
         </div>
       </div>
     </div>
     <div *ngIf="((this.userSubscription | async)?.status ?? '') == 'active'" class="pageContent">
 
+      <div class="wrapper">
 
       <section class="algorithmSelector">
         <header>

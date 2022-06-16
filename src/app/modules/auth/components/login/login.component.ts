@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginModel } from '../../models/LoginModel';
 import { UserService } from '../../../../core/services/user.service';
+import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
+    private subscriptionService: SubscriptionsService,
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
@@ -46,6 +48,9 @@ export class LoginComponent implements OnInit {
 
     this.userService.loginUser(loginFormData)
       .subscribe(response => {
+
+        this.subscriptionService.loadSubscription();
+
         this.router.navigateByUrl(this.registerStruct.registerUrl);
       },
         err => {

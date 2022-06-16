@@ -22,7 +22,6 @@ export class UserService {
   currentUser!: LoginResponseModel;
 
   constructor(private httpClient: HttpClient,
-    private subscriptionService: SubscriptionsService,
    private router: Router) {
      this.currentToken = '';
      if(this.isAuthenticated()){
@@ -69,7 +68,7 @@ export class UserService {
   logoutUser(): void{
     localStorage.removeItem('token');
     localStorage.removeItem("subscription");
-    this.subscriptionService.userSubscription.next(this.subscriptionService.noSubscription())
+ 
   }
 
 

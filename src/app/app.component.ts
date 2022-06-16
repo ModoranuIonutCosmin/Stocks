@@ -69,6 +69,7 @@ export class AppComponent {
 
   logout(): void {
     this.userService.logoutUser();
+    this.subscriptionService.userSubscription.next(this.subscriptionService.noSubscription())
     this._snackBar.open(`You've logged out successfully`, 'OK', {duration: 1000});
     this.router.navigateByUrl('/');
   }

@@ -17,7 +17,7 @@ export class UnsubscribedOnlyGuard implements CanActivate {
    
     return this.subscriptionsService.userSubscription
     .pipe(
-      map((subs) => subs && subs.status != 'active')
+      map((subs) => subs == null || subs.status != 'active')
       )
       ;
       
