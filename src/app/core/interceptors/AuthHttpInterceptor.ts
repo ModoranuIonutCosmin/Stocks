@@ -11,10 +11,12 @@ import { UserService } from "../services/user.service";
 import { catchError, map } from "rxjs/operators";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { SubscriptionsService } from "../services/subscription/subscription.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private authenticationService: UserService,
+                private subscriptionService: SubscriptionsService,
                 private snackBar: MatSnackBar,
                 private router: Router) {}
 
@@ -43,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
           ) => {
             if (httpErrorResponse.status === 401) {
               this.authenticationService.logoutUser();
-
+              this.subscriptionService.userSubscription.next(this.subscriptionService.noSubscription())
               this.router.navigateByUrl('/auth/login');
             }
             return throwError(httpErrorResponse);
