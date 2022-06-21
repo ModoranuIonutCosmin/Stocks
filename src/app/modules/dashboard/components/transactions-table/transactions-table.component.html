@@ -99,7 +99,7 @@
         <p *ngIf="dateIsNotNull(element.scheduledAutoOpen)">
             {{element.scheduledAutoOpen | date: (this.isMobile ? 'short' : 'medium')}}
         </p>
-        <p>No</p>
+        <p *ngIf="!dateIsNotNull(element.scheduledAutoOpen)">No</p>
       
     </td>
   </ng-container>
@@ -111,7 +111,7 @@
         <p *ngIf="dateIsNotNull(element.scheduledAutoClose)">
             {{element.scheduledAutoClose | date: (this.isMobile ? 'short' : 'medium')}}
         </p>
-        <p>No</p>
+        <p *ngIf="!dateIsNotNull(element.scheduledAutoOpen)">No</p>
 
     </td>
   </ng-container>
