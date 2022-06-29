@@ -1,6 +1,6 @@
 .container {
+    padding: 50px 10px;
     display: flex;
-    height: calc(100% - 95px);
     justify-content: space-around;
     flex-direction: column;
     background-color: #fff;
@@ -8,7 +8,7 @@
 
 
 header {
-
+    padding: 50px 10px;
     .title {
         font-size: 3em;
     }

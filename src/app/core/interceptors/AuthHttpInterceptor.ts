@@ -5,18 +5,16 @@ import {
     HttpInterceptor,
     HttpRequest,
   } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import {Injectable, Injector} from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { UserService } from "../services/user.service";
 import { catchError, map } from "rxjs/operators";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import { SubscriptionsService } from "../services/subscription/subscription.service";
-  
-@Injectable()
+
+@Injectable({providedIn: "root"})
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: UserService,
-                private subscriptionService: SubscriptionsService,
+    constructor(private injector: Injector,
                 private snackBar: MatSnackBar,
                 private router: Router) {}
 
@@ -25,14 +23,21 @@ export class AuthInterceptor implements HttpInterceptor {
       next: HttpHandler
     ): Observable<HttpEvent<any>> {
 
-      if (this.authenticationService.isAuthenticated()) {
-        request = request.clone({
-          setHeaders: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${this.authenticationService.gatherToken()}`
-          }
-        });
+      try {
+        var userService: UserService = this.injector.get(UserService)
+
+        if (userService.isAuthenticated()) {
+          request = request.clone({
+            setHeaders: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${userService.gatherToken()}`
+            }
+          });
+        }
+      } catch {
+
       }
+
 
       return next.handle(request).pipe(
         map((event: HttpEvent<any>) => {
@@ -44,8 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
             _: Observable<HttpEvent<any>>
           ) => {
             if (httpErrorResponse.status === 401) {
-              this.authenticationService.logoutUser();
-              this.subscriptionService.userSubscription.next(this.subscriptionService.noSubscription())
+              userService?.logoutUser();
               this.router.navigateByUrl('/auth/login');
             }
             return throwError(httpErrorResponse);

@@ -1,11 +1,10 @@
 
 .auth{
-    padding: 10px;
-    display: flex;
+    padding: 50px;
+  display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: calc(100% - 115px);
     header{
         margin: 20px;
         h1{
@@ -45,12 +44,8 @@
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
 
-    .auth{
-        height: 100%;
-        padding: 20px;
-    }
     .form{
         .name,  .password
         {
@@ -61,5 +56,5 @@
             }
         }
     }
-   
+
 }

@@ -20,7 +20,6 @@ import { SpinnerService } from './core/services/spinner.service';
 import { ServerDownInterceptor } from './core/interceptors/server-down.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { SubscriptionsService } from './core/services/subscription/subscription.service';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { HomeModule } from './modules/home/home.module';
 
@@ -64,6 +63,7 @@ import { HomeModule } from './modules/home/home.module';
     TradingContextService,
     SpinnerService,
     LoggedGuard,
+
   ],
   bootstrap: [AppComponent],
 })

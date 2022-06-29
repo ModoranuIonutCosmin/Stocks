@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -29,10 +29,10 @@ export class TradeSuggestionsSelectorComponent implements OnInit {
 
   tradeSuggestions: TradeSuggestion[] = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private tradeSuggestionsService: TradeSuggestionsService,
     private portofolioService: PortofolioService,
     private route: ActivatedRoute,

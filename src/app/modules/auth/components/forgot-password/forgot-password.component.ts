@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ForgotPasswordRequestModel} from 'src/app/modules/stocks/models/ForgotPasswordRequest';
@@ -12,12 +12,12 @@ import {UserService} from '../../../../core/services/user.service';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  forgotPassword: FormGroup;
+  forgotPassword: UntypedFormGroup;
   hidePassword: boolean = true;
   actionSuccess: boolean = false;
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private userService: UserService,
               private snackBar: MatSnackBar,
   ) {

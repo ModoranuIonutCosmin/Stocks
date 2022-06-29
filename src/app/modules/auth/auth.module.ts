@@ -24,6 +24,6 @@ import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.
     ReactiveFormsModule,
     MaterialModule,
   ],
-  providers: [UserService]
+  providers: []
 })
 export class AuthModule { }

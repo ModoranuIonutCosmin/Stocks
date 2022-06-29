@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 import { SubscriptionDetails } from '../../models/subscription-details';
+import {UserService} from "../../../../core/services/user.service";
 
 @Component({
   selector: 'app-subscription-tiers',
@@ -13,7 +13,7 @@ export class SubscriptionTiersComponent implements OnInit {
 
   subcriptionInfo!: SubscriptionDetails
 
-  constructor(private subscriptionsService: SubscriptionsService) {
+  constructor(private subscriptionsService: UserService) {
 
   }
 

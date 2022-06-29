@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TradingParametersPanelComponent} from "../trading-parameters-panel/trading-parameters-panel.component";
-import {FormGroup, FormGroupDirective} from "@angular/forms";
+import {UntypedFormGroup, FormGroupDirective} from "@angular/forms";
 
 @Component({
   selector: 'app-numbers-only-spinbox',
@@ -22,7 +22,7 @@ export class NumbersOnlySpinboxComponent implements OnInit {
   @Input() value = 0;
   @Output() valueChange = new EventEmitter<number>();
 
-  @Input() parentForm!: FormGroup;
+  @Input() parentForm!: UntypedFormGroup;
   @Input() label: string = '';
   constructor() { }
 

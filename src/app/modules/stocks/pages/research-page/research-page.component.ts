@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import { BehaviorSubject } from 'rxjs';
-import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 import { Subscription } from 'src/app/modules/dashboard/models/subscription';
 import {StocksDataService} from "../../../../core/services/stocks-data.service";
 import {StocksSingleCompanyReport} from "../../models/stocks-single-company-report";
+import {UserService} from "../../../../core/services/user.service";
 
 @Component({
   selector: 'app-research-page',
@@ -35,7 +35,7 @@ export class ResearchPageComponent implements OnInit {
   ///
   constructor(private route: ActivatedRoute,
               private stocksService: StocksDataService,
-              private subscriptionService: SubscriptionsService) {
+              private subscriptionService: UserService) {
       this.userSubscription = subscriptionService.userSubscription;
   }
 

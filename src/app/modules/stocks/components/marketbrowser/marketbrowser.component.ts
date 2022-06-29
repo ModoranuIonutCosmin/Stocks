@@ -9,7 +9,6 @@ import {
   TradingParametersPanelComponent
 } from "../../../../shared/components/trading-parameters-panel/trading-parameters-panel.component";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {Spinner} from "@angular/cli/utilities/spinner";
 import {SpinnerService} from "../../../../core/services/spinner.service";
 
 @Component({

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginModel } from '../../models/LoginModel';
 import { UserService } from '../../../../core/services/user.service';
-import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +12,13 @@ import { SubscriptionsService } from 'src/app/core/services/subscription/subscri
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   hidePassword: boolean = true;
   returnUrl: string;
   registerStruct: {registerUrl: string};
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private userService: UserService,
-    private subscriptionService: SubscriptionsService,
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
@@ -49,7 +47,7 @@ export class LoginComponent implements OnInit {
     this.userService.loginUser(loginFormData)
       .subscribe(response => {
 
-        this.subscriptionService.loadSubscription();
+        this.userService.loadSubscription();
 
         this.router.navigateByUrl(this.registerStruct.registerUrl);
       },

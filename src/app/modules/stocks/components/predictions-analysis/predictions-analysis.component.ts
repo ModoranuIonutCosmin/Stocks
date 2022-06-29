@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 import { Subscription } from 'src/app/modules/dashboard/models/subscription';
+import {UserService} from "../../../../core/services/user.service";
 
 @Component({
   selector: 'app-predictions-analysis',
@@ -27,7 +27,7 @@ export class PredictionsAnalysisComponent {
 
 
   constructor(private route: ActivatedRoute,
-    private subscriptionService: SubscriptionsService,
+    private subscriptionService: UserService,
     ) {
     this.userSubscription = this.subscriptionService.userSubscription;
     subscriptionService.checkRemoteSubcription()

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class SuccessfulSubscriptionComponent implements OnInit {
 
-  constructor(private subscriptionService: SubscriptionsService) { }
+  constructor(private subscriptionService: UserService) { }
 
   ngOnInit(): void {
     this.subscriptionService.checkRemoteSubcription()

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmTradeDialogData } from '../../../models/trade-suggestions/confirm-trade-dialog-data';
 
@@ -17,7 +17,7 @@ export class ConfirmTradeDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ConfirmTradeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmTradeDialogData,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
 
   }

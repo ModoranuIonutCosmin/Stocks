@@ -6,10 +6,8 @@ import {PortofolioService} from './core/services/portofolio.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserService} from './core/services/user.service';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Spinner} from "@angular/cli/utilities/spinner";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {SpinnerService} from "./core/services/spinner.service";
-import { SubscriptionsService } from './core/services/subscription/subscription.service';
 import { Subscription } from './modules/dashboard/models/subscription';
 
 @Component({
@@ -28,16 +26,16 @@ export class AppComponent {
 
   subscription$!: BehaviorSubject<Subscription>;
   amountRefill: number = 0;
-  refillForm: FormGroup = this.fb.group({
+  refillForm: UntypedFormGroup = this.fb.group({
     "refill": [0, Validators.required]
   });
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private fb: FormBuilder,
+              private fb: UntypedFormBuilder,
               private portofolioService: PortofolioService,
               public userService: UserService,
               private _snackBar: MatSnackBar,
-              public subscriptionService: SubscriptionsService,
+              public subscriptionService: UserService,
               private spinnerService: SpinnerService,
               private router: Router) {
     this.amountRefill = 0;

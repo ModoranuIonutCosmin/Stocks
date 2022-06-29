@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {TradingContextService} from "../../../core/services/trading-context.service";
 import {PlaceOrderService} from "../../../core/services/place-order.service";
 import {PlaceOrderRequestModel} from "../../../modules/stocks/models/PlaceOrderRequestModel";
@@ -36,7 +36,7 @@ export class TradingParametersPanelComponent implements OnInit, OnDestroy {
   errorMessage = ''
   ticker = '';
 
-  orderDetails: FormGroup = this.fb.group({
+  orderDetails: UntypedFormGroup = this.fb.group({
     investedAmount: [0, [Validators.required]],
     stopLoss: [0, [Validators.required]],
     takeProfit: [0, [Validators.required]],
@@ -47,7 +47,7 @@ export class TradingParametersPanelComponent implements OnInit, OnDestroy {
   companyModel!: StocksSingleCompanyReport;
   fullyLoaded: boolean = false;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private tradingContextService: TradingContextService,
               private placeOrderService: PlaceOrderService,
               private portofolioService: PortofolioService,

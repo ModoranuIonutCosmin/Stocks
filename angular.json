@@ -116,5 +116,7 @@
       }
     }
   },
-  "defaultProject": "Stocks"
+  "cli": {
+    "analytics": false
+  }
 }

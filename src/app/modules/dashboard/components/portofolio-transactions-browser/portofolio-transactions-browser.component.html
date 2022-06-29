@@ -1,5 +1,6 @@
 
-<table mat-table [dataSource]="this.TransactionsList.transactions"
+<div style="overflow-x: auto;width: calc(100%)">
+  <table mat-table [dataSource]="this.TransactionsList.transactions"
        class="mat-elevation-z8 mainDataTable" *ngIf="!(isLoading$ | async) && this.transactionsPresent()">
 
     <ng-container matColumnDef="Market">
@@ -87,6 +88,7 @@
     <tr mat-header-row *matHeaderRowDef="this.columnDefinitions"></tr>
     <tr mat-row *matRowDef="let row; columns: this.columnDefinitions;" ></tr>
   </table>
+</div>
 
   <article>
     <header>

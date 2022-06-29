@@ -4,7 +4,6 @@ import {StocksRoutingModule} from './stocks-routing.module';
 import {MaterialModule} from '../material/material.module';
 import {MarketbrowserComponent} from './components/marketbrowser/marketbrowser.component';
 import {StocksDataService} from '../../core/services/stocks-data.service';
-import {UserService} from '../../core/services/user.service';
 import {LoggedGuard} from 'src/app/core/guard/logged-guard';
 import {PortofolioService} from '../../core/services/portofolio.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +13,6 @@ import {ResearchPageComponent} from './pages/research-page/research-page.compone
 import { StockschartComponent } from './components/stockschart/stockschart.component';
 import {NgApexchartsModule} from "ng-apexcharts";
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
-import { SubscriptionsService } from 'src/app/core/services/subscription/subscription.service';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { StocksPredictionsLineGraphComponent } from './components/stocks-predictions-line-graph/stocks-predictions-line-graph.component';
 import { TradeSuggestComponent } from './components/trade-suggest/trade-suggest.component';
@@ -47,7 +45,7 @@ import { ConfirmTradeDialogComponent } from './components/marketbrowser/confirm-
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [StocksDataService, LoggedGuard, UserService, PortofolioService, TradeSuggestionsService]
+  providers: [StocksDataService, LoggedGuard, PortofolioService, TradeSuggestionsService]
 })
 export class StocksModule {
 }

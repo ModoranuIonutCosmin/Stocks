@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {UntypedFormBuilder} from "@angular/forms";
 import {UserService} from "../../../../core/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SpinnerService} from "../../../../core/services/spinner.service";
@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   })
 
   isLoading$: BehaviorSubject<boolean>;
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private snackBar: MatSnackBar,
               private userService: UserService,
               private spinnerService: SpinnerService) {

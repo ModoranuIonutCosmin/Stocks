@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResetPasswordRequestModel } from 'src/app/modules/stocks/models/ResetPasswordRequestModel';
@@ -12,14 +12,14 @@ import { UserService } from '../../../../core/services/user.service';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  resetPassword: FormGroup;
+  resetPassword: UntypedFormGroup;
   actionSuccess: boolean = false;
   errorMessage: string = '';
   hidePassword: boolean = true;
   email: string;
   token: string;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private userService: UserService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
@@ -68,7 +68,7 @@ export class ResetPasswordComponent implements OnInit {
 
   PasswordMatchValidator(controlName: string, matchingControlName: string){
 
-    return (formGroup: FormGroup) => {
+    return (formGroup: UntypedFormGroup) => {
         const control = formGroup.controls[controlName];
 
         const matchingControl = formGroup.controls[matchingControlName];
