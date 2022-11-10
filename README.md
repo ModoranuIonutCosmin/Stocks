@@ -8,15 +8,15 @@ A web software solution that gives users convenient ways of:
 
 ## Demo
 A *short* summary of all features is presented in the video below.
-If you want to try the app yourself you can access [this](https://bit.ly/3tu3orN) deployed version which
-may be slow at first operation due to it being hosted on a free development deployment slot,
+<!--- If you want to try the app yourself you can access [this](https://bit.ly/3tu3orN) deployed version which may be slow at first operation due to it being hosted on a free development deployment slot,
 app having to cold-start.
+-->
 
 See the video below:
 
-[![Demo](https://i.imgur.com/2qCXI3a.png)](https://bit.ly/3irf9sL "Stocks research")
+[![Demo](https://i.imgur.com/TqqgeAC.png)](https://youtu.be/3f8c9ewmxH8 "Stocks research")
 
-Alt: [click](https://bit.ly/3irf9sL)
+Alt: [click](https://youtu.be/3f8c9ewmxH8)
 
 ## Technologies
 
